@@ -200,7 +200,7 @@
   <!-- ============ CONTROL PANEL ============ -->
   <aside class="panel noprint">
     <h1>Πινακίδα Παραχώρησης</h1>
-    <p class="sub">Ρίξε το PDF της σύμβασης για αυτόματη συμπλήρωση — ή γράψε χειροκίνητα. <span style="color:var(--sea);font-weight:600">v9 · PWA</span></p>
+    <p class="sub">Ρίξε το PDF της σύμβασης για αυτόματη συμπλήρωση — ή γράψε χειροκίνητα. <span style="color:var(--sea);font-weight:600">v10 · PWA</span></p>
     <button type="button" id="helpBtn" class="btn-help">📖 Οδηγίες χρήσης</button>
 
     <div class="fld">
@@ -755,19 +755,23 @@ document.getElementById('dlPng').addEventListener('click',async()=>{
 /* ---------- PWA: offline service worker (works when served over http/https) ---------- */
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   const swCode = `
-    const CACHE='pinakida-v9';
+    const CACHE='pinakida-v10';
     self.addEventListener('install', e=>{ self.skipWaiting(); });
-    self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+    self.addEventListener('activate', e=>{
+      e.waitUntil(
+        caches.keys().then(keys=>Promise.all(
+          keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))
+        )).then(()=>self.clients.claim())
+      );
+    });
     self.addEventListener('fetch', e=>{
+      if(e.request.method!=='GET') return;
+      // network-first: always try fresh, cache as fallback (so updates show immediately)
       e.respondWith(
-        caches.open(CACHE).then(c=>
-          c.match(e.request).then(hit=>
-            hit || fetch(e.request).then(res=>{
-              try{ if(e.request.method==='GET' && res.status===200) c.put(e.request, res.clone()); }catch(_){}
-              return res;
-            }).catch(()=> c.match(e.request))
-          )
-        )
+        fetch(e.request).then(res=>{
+          try{ const c=res.clone(); caches.open(CACHE).then(cc=>cc.put(e.request,c)); }catch(_){}
+          return res;
+        }).catch(()=> caches.open(CACHE).then(c=>c.match(e.request)))
       );
     });`;
   try{
