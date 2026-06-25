@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#103d54">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Πινακίδα">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAABmJLR0QA/wD/AP+gvaeTAAAPpUlEQVR4nO3de3RU9YEH8O/v3plMSMLkwVshQSIgBBRoKaJJiFBWsSIKBF21Fbc9rKVoqWfb2m131d1a9bTunqVrXdntYbe0PhjBrT3gVnwMBPWIWoxheIWEEHkHyIQk5Hnvb/9QIJAJecyd+7s39/v5B5jH/X0P5/eduXPvnd8I2Km4WA+eMKYJqV+rSXO8hBgHYAyAVACZX/6ZZGsmspUEmoVEHYSsk0I7LaS5BxClUojP9Jakj09/+IczduYRiR4gq2jhSNPQFgOYA6AQQDDRY5JrtQHYCilfh8//ejT8clWiB0xIAUbOLB7QoGMxBL4FyNkAtESMQ/2aFBBvQpirardO/j/gcTMRg1hagME33j6wTUv6rpB4BALDrNw2eVo5hHwyunXyWquLYE0BvrLMn55Su1JAPgogy5JtEnW2QwI/rCt59W2rNhh3ATIKimcB8jkAeRbkIeqWkFjXHjCW17/92qm4t9XnZxYtTU43G54VEt+NaztEfXNUCPmd2q3rN8WzkT5N3GDhorGaFK8AmBrP4ERxkpD4l+gI8WOEQkZfNtDrAqTnL/q6EGI9eDiTHEJCbNJbk/66L+cQelWA9MJFS4QUa8GTVeQ8uzTdvPl0eMOh3jypx8fn0/OLlwkpXgInPznTRNMQ4cz84uzePKlH7wBfvvK/BJ7QIuc7AMO8Kfr+hoM9eXC3BUgvLJ4tpNwEIBB3NCJbyIp2aDMbSkI13T3ysq/owcJFY4WUr4GTn1xF5PqAVzFvXrfztusCFC1N/vJQJ4/2kAvJwozG1NXdParLAqSbDc+Cx/nJzSS+lZG/6G8u95CYnwEyZy0ukCa2dHU/kYs06rr86qnw+j2x7uz8DvCVZX5p4nlw8lP/kGoY2h9QVOSLdWenAqSn1K4EL2yjfkVOyzAGr4h1z0Wv8kOKitPaDFkFYJAdsYhsVO8zfdecfO/lIx1vvOgdoNWQy8HJT/3TwHat7elLb7zwDlC0NDnDaKgEMMLOVEQ2MnRdTur4gfj8O0BGe8MScPJT/6YbBv6+4w0XdoGE+KbtcYhsJ+5Jv+Gu3HP/0gBg0MziKwF5k7pQRLbRoRvfPvcPDQAMnywGoCuLRGQjASw9d17g3C7QHIV5iOw2IrN98C0AoKG4WAeQrzgQkb0EbgcALXjCmAYgQ3EcIltJYB4AaELq16oOQ6TAyMyiOydpmjTHq05CpIJs177mkxCOLUAgyY/CaZMxLucK+H0xL+Yjh2puacVn5VX44LPdkFKqjhObEJN8AEarzhHLwjk34hcr7sewQZmqo1AcIhUH8dAzz2PHngrVUWIQkzUA6apjXOrBxbfit4+t5OTvB/Jyc7Bx1RPIn+q8K+yllCM1AANVB+koLzcHP19xv+oYZKEByQGseeIRDEp31FQDBDI0AGmqc3T00N23Q9e4/FB/MzgjiBV33646xkUEkKnBYSu9FU6bpDoCJcj8WTNUR7hUwHEvtUMH8Zxcf5UzYqjqCJ04rgDc/em/fLrzrrfkbCNPYwHI01gA8jQWgDyNBSBPYwHI01x/iWXpvkp876nfYFdltXOvOlRI0wSmjs/Ff/zsYVw9iqveXMr17wArnn4ekYqDnPxdME2JT3bvx/Jf/LvqKI7k+gLsquzRT0F53ie7y1VHcCTXF8A0+crfE/x/is31BQj4/aojuAL/n2JzfQG+UTBddQRXKJrOtQ9icf1RoF8/uhzZI4aidG8l+CYf24SrRuGH9y9WHcORXF+AlOQAHvvbe1XHIJdy/S4QUTxYAPI0FoA8jQUgT2MByNNYAPI01x8GbWg8iz++8Q4OHT2uOopnCCEwetQVWDBvNgJJjlpVp9dcX4AXfrcOpZG9qmN4zs495Th5OorlD9ytOkpcXL8LtK+iSnUEzyqN7On+QQ7n+gJcO9Gxq7v3e+Ovvkp1hLi5fhfoO/ctwpBBmaj6/Ai/FGOjkVcMwx3zZquOETfXFyCQlIQlC25RHYNcyvW7QETxYAHI01gA8jTXfwbgiTBrZWYEcce8ORg6OEt1FFu4vgA8EWa9PfsP4JmfPQK/3/XTo1uu3wXiiTDrnTxVi8PHTqiOYQvXF4AnwqyXPjANI4YNVh3DFq5/j+OJMGulB9Nw29wi11/k1lOuLwBPhFE8XL8LRBQPFoA8jQUgT2MByNNYAPI0FoA8jQUgT2MByNNYAPI0FoA8zfWXQqh0/FQt9lUfhmGYSsbXdQ15uTnICg5UMn5/wAL0gWGaWPnLF/D7je+ojgIhBFbeewf+cdk9qqO4EneB+mDNH990xOQHACkl/vX3r+HVt7apjuJKLEAfvLO9VHWETv733Q9UR3AlFqAP6s82qY7QSV1Do+oIrsQCkKfxQ7BFHn1gCX78QHG3j5v//cexbUck5n35U/Pwp397vNttPLMmhKfXrOttRIqB7wDkaSwAeRoLQJ7GApCnsQDkaSwAeRoLQJ7GApCn8USYRaqPncB7n+7q9nGXu2ShrqGxR9uo9sjCtXZgASzy4hthvPhGOK5tlJVX4baHH7MmEPUId4HI01gA8jQWgDyNBSBPYwHI01gA8jQeBrXIPfOKcM+8m7p93E9+vQZl5VUx75s8djSeeuiBTrfz0GjisAAWyR4+FDdOmdjt49LTUi97X0+2QdbhLhB5GgtAnsYCkKfxM4CDVB89gWfWhGLelz81D/lT8i66jStDxI8FcJDqYzVdTur8KXmdll1hAeLHXSDyNBaAPI0FIE/jZwCLPL1mXUL3yRO9fa/iOwB5GgvQB5e7nEGVYGqK6giuxAL0wYKi61VH6GT29OtUR3AlFqAPiucW4Af33QkhhOooAIBvfmM2li6YqzqGK4mMgsVSdYiOarfGPhPqRKfP1CNScVDpr0SOy74SwwZlKhm/LzILu/8NBTvxKFAcsoIDUTB1kuoYFAfuApGnsQDkaSwAeRoLQJ7GApCnsQDkaSwAeRoLQJ7GApCnsQDkaSwAeRqvBbLZyTON+HBPFUoildgWqUBzWzumj8tGQd4YzJo8FlcOSlcd0VNYgARraG7BpxWHURKpwLZIJXYePAopL74Ad+P2CDZujwAAsodkIj8vFwV5Y3DDxKuQmcYvuiQSC2Cxsy2t+Mv+Q+cnfOTgUZiy51ecV9fU4sXwx3gx/DGAiwtRMCkXwZTkREX3JMcVoL6xCQNTB6iO0WPthondnx/DtkglSiIV+HDvQbS1G5Ztv2MhdE3DxOzhyM8bg4K8XHx17CgkJ/ktGyvR6hubVEfoxHEF2B7Zizlfm6I6RpcM08Su6gsT/qN91Whpa7dt7LKqIyirOoLnN26DT9cwYdSFQswYnwO/T7clS1/srfpcdYROHFeA1evfcFwBqmtqsS1SgZJIJUp2VuDM2WbVkQB88e7TsRApgSRMu3okCvJykZ83Bnk5I6A55GubALBuc4nqCJ047iuRALD6Hx5G8dwCZeN3nPDv7zqA2oazyrLEIy05gCm5V54vxKScEcq+x1xWXoWvP/gTtNr0btlTjixAwO/Hb366Agtn32DLeMej9fh4XzVKIpXYUlaOw6fqbBnXboOCqbj+mtEoyBuD/LxcZA+x57vEZeVVuOvRp3C05rQt4/WGIwtwzvzCGfj2nTdjyvgxlq7Fc+mx+OqaWsu27SZDMwYm7BxEY1MzdlVWI7S5BP/zp7cc98p/jqMLYBlNgy+QAi05Bb4BadADPJQYi9nWivamszCbG9De1AhpWnc0y6kc9yHYEkLAl5x6YcInJQPO+SzoWJo/CUn+JCCYAcAbhegnBRDQAwH4BqRBS06BnpzqmEWr3OzSQhgtzWhvaoDZfBbtzY1AL07wOZVrC6AHkjnhbaYHkjvsPkoYLS3nC2E0N3a6xMMNbC2AX5qYXn8aQ9paev1coenQ/H4IXwCaPwloagOa6hOQkvrKbGuFbG/94k+j9x96jyQl4y9pWTBsfDGzrQCphoEnDpZhZIs7j6mTPfakBPFk9kS0CXuu1Lft+wDzTx3m5KduXXP2DG49dcS28WwrwKiWRruGIpcbZ+OurW0F2JcStGsocrnq5DTbxrKtAOEJM1CeOdyu4ciljgzMxNsTZtg2nm0fgts0Hc9efyuuPV6NnLqT0OG+Q2aUOAYEDgez8OmwHDS32He1ra2HQQ2hYcfw0dgxfLSdwxJ1SQPQ+4PyRP1DiwaJqOoURIrUaxCyf178TtS9eg0QzvuiJpEdBOo0SLlTdQ4iRQ5oUggWgDxJmnKvpkFuVx2ESAUBsU+rLVlfBoHDqsMQ2U0Ks1QDIAH8WXUYIptF64brpV9cCyTxuuIwRPYSeBehkKEBQPRs1iYJHFOdicguAvJt4NzVoJ+sbtOA3ylNRGQfw6dp64EOl0MbuvhPAP1v3QuiS0hgc004dAzoUIAz4dB+AC8rS0VkE02Itef/3vEOXehPAjBtT0RkEwkcS23Da+f+fVEBTm19ZTeAl2xPRWQTIcUvD30QOv9LHZ2+EunXxd8B4BWi1B+d8vuwuuMNnQpQEw4dgxT/ZF8mIpsI8c814VBDx5tifik+6qtZBWCHLaGIbCFKo1rNc5feGntViHC43dTFEgBce5D6Awng+wiHO63X2OWyKGfCof1SiB9Yl4EHl6inLJ4rUq6KloS2xLrrsusC1W0N/RbCmjPERmurFZshD7B2roiPorXaj7q6t9uFsaKpjcsAsTXeGK3RkzBanPc7seQsRksTWqMnrdpcVArchUioy0b1aB3q4MziLN0n35fA+LjiCEDTk6D5/ADX86eOpITZ3gbTaIVFa6a1Sk3cVrcltPlyD+rxLMy4YWEOdO1dAFfFHY0osQwJeVddyfr13T2wx2uDRt/fcFBIUQTIiriiESWWIYEHezL5gT78dFxW0cKRpqH9GcDEXkcjSqwWCXlvTyc/0IfVoU+HNxzSWgMzJcSm3j6XKIGikLilN5MfAPS+jNR0uKylZUbeKwMakAJgJvgjpKSU+EgKMbeu5NVPe/3MeIfOvHHxPKnhvwBcEe+2iHpJQspV0VrtR5c71Hk5lrxyB2cWZwmffE4Ad1uxPaLuiVIB43u1JRvei2srVsUBgIxZC2+Cqf8KkNOs3C5RBychxM+jWs1zsa7t6a0E7Ls/rmXk77wPQv4UEOOs3z551FFI8atASvILx99ca9kvLibww+vjWlZ+5K8MTT4sJG6Gjb9HRv2GIYHNmhBra7XUDQj/t+W/nWTL0ZvM/OJsaOZ8aYoFEJgFIMmOccmVagGxRQjzLZ+mrT+3ekOi2H74MmvGvUHT3zINmrgOUl4nhZgAU2ZAIANAhgCS7c5EtmoF0AAgCoEzAA4IYJ80sVcKs7RuuF6KUMi25Xn+H5ZIpNXNAmjAAAAAAElFTkSuQmCC">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22%CE%A0%CE%B9%CE%BD%CE%B1%CE%BA%CE%AF%CE%B4%CE%B1%20%CE%A0%CE%B1%CF%81%CE%B1%CF%87%CF%8E%CF%81%CE%B7%CF%83%CE%B7%CF%82%22%2C%20%22short_name%22%3A%20%22%CE%A0%CE%B9%CE%BD%CE%B1%CE%BA%CE%AF%CE%B4%CE%B1%22%2C%20%22description%22%3A%20%22%CE%93%CE%B5%CE%BD%CE%BD%CE%AE%CF%84%CF%81%CE%B9%CE%B1%20%CF%80%CE%B9%CE%BD%CE%B1%CE%BA%CE%AF%CE%B4%CE%B1%CF%82%20%CF%80%CE%B1%CF%81%CE%B1%CF%87%CF%8E%CF%81%CE%B7%CF%83%CE%B7%CF%82%20%CE%B1%CE%B9%CE%B3%CE%B9%CE%B1%CE%BB%CE%BF%CF%8D%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%23e7edf1%22%2C%20%22theme_color%22%3A%20%22%23103d54%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAABmJLR0QA/wD/AP%2BgvaeTAAAPpUlEQVR4nO3de3RU9YEH8O/v3plMSMLkwVshQSIgBBRoKaJJiFBWsSIKBF21Fbc9rKVoqWfb2m131d1a9bTunqVrXdntYbe0PhjBrT3gVnwMBPWIWoxheIWEEHkHyIQk5Hnvb/9QIJAJecyd%2B7s39/v5B5jH/X0P5/eduXPvnd8I2Km4WA%2BeMKYJqV%2BrSXO8hBgHYAyAVACZX/6ZZGsmspUEmoVEHYSsk0I7LaS5BxClUojP9Jakj09/%2BIczduYRiR4gq2jhSNPQFgOYA6AQQDDRY5JrtQHYCilfh8//ejT8clWiB0xIAUbOLB7QoGMxBL4FyNkAtESMQ/2aFBBvQpirardO/j/gcTMRg1hagME33j6wTUv6rpB4BALDrNw2eVo5hHwyunXyWquLYE0BvrLMn55Su1JAPgogy5JtEnW2QwI/rCt59W2rNhh3ATIKimcB8jkAeRbkIeqWkFjXHjCW17/92qm4t9XnZxYtTU43G54VEt%2BNaztEfXNUCPmd2q3rN8WzkT5N3GDhorGaFK8AmBrP4ERxkpD4l%2BgI8WOEQkZfNtDrAqTnL/q6EGI9eDiTHEJCbNJbk/66L%2BcQelWA9MJFS4QUa8GTVeQ8uzTdvPl0eMOh3jypx8fn0/OLlwkpXgInPznTRNMQ4cz84uzePKlH7wBfvvK/BJ7QIuc7AMO8Kfr%2BhoM9eXC3BUgvLJ4tpNwEIBB3NCJbyIp2aDMbSkI13T3ysq/owcJFY4WUr4GTn1xF5PqAVzFvXrfztusCFC1N/vJQJ4/2kAvJwozG1NXdParLAqSbDc%2BCx/nJzSS%2BlZG/6G8u95CYnwEyZy0ukCa2dHU/kYs06rr86qnw%2Bj2x7uz8DvCVZX5p4nlw8lP/kGoY2h9QVOSLdWenAqSn1K4EL2yjfkVOyzAGr4h1z0Wv8kOKitPaDFkFYJAdsYhsVO8zfdecfO/lIx1vvOgdoNWQy8HJT/3TwHat7elLb7zwDlC0NDnDaKgEMMLOVEQ2MnRdTur4gfj8O0BGe8MScPJT/6YbBv6%2B4w0XdoGE%2BKbtcYhsJ%2B5Jv%2BGu3HP/0gBg0MziKwF5k7pQRLbRoRvfPvcPDQAMnywGoCuLRGQjASw9d17g3C7QHIV5iOw2IrN98C0AoKG4WAeQrzgQkb0EbgcALXjCmAYgQ3EcIltJYB4AaELq16oOQ6TAyMyiOydpmjTHq05CpIJs177mkxCOLUAgyY/CaZMxLucK%2BH0xL%2BYjh2puacVn5VX44LPdkFKqjhObEJN8AEarzhHLwjk34hcr7sewQZmqo1AcIhUH8dAzz2PHngrVUWIQkzUA6apjXOrBxbfit4%2Bt5OTvB/Jyc7Bx1RPIn%2Bq8K%2ByllCM1AANVB%2BkoLzcHP19xv%2BoYZKEByQGseeIRDEp31FQDBDI0AGmqc3T00N23Q9e4/FB/MzgjiBV33646xkUEkKnBYSu9FU6bpDoCJcj8WTNUR7hUwHEvtUMH8Zxcf5UzYqjqCJ04rgDc/em/fLrzrrfkbCNPYwHI01gA8jQWgDyNBSBPYwHI01x/iWXpvkp876nfYFdltXOvOlRI0wSmjs/Ff/zsYVw9iqveXMr17wArnn4ekYqDnPxdME2JT3bvx/Jf/LvqKI7k%2BgLsquzRT0F53ie7y1VHcCTXF8A0%2BcrfE/x/is31BQj4/aojuAL/n2JzfQG%2BUTBddQRXKJrOtQ9icf1RoF8/uhzZI4aidG8l%2BCYf24SrRuGH9y9WHcORXF%2BAlOQAHvvbe1XHIJdy/S4QUTxYAPI0FoA8jQUgT2MByNNYAPI01x8GbWg8iz%2B%2B8Q4OHT2uOopnCCEwetQVWDBvNgJJjlpVp9dcX4AXfrcOpZG9qmN4zs495Th5OorlD9ytOkpcXL8LtK%2BiSnUEzyqN7On%2BQQ7n%2BgJcO9Gxq7v3e%2BOvvkp1hLi5fhfoO/ctwpBBmaj6/Ai/FGOjkVcMwx3zZquOETfXFyCQlIQlC25RHYNcyvW7QETxYAHI01gA8jTXfwbgiTBrZWYEcce8ORg6OEt1FFu4vgA8EWa9PfsP4JmfPQK/3/XTo1uu3wXiiTDrnTxVi8PHTqiOYQvXF4AnwqyXPjANI4YNVh3DFq5/j%2BOJMGulB9Nw29wi11/k1lOuLwBPhFE8XL8LRBQPFoA8jQUgT2MByNNYAPI0FoA8jQUgT2MByNNYAPI0FoA8zfWXQqh0/FQt9lUfhmGYSsbXdQ15uTnICg5UMn5/wAL0gWGaWPnLF/D7je%2BojgIhBFbeewf%2Bcdk9qqO4EneB%2BmDNH990xOQHACkl/vX3r%2BHVt7apjuJKLEAfvLO9VHWETv733Q9UR3AlFqAP6s82qY7QSV1Do%2BoIrsQCkKfxQ7BFHn1gCX78QHG3j5v//cexbUck5n35U/Pwp397vNttPLMmhKfXrOttRIqB7wDkaSwAeRoLQJ7GApCnsQDkaSwAeRoLQJ7GApCn8USYRaqPncB7n%2B7q9nGXu2ShrqGxR9uo9sjCtXZgASzy4hthvPhGOK5tlJVX4baHH7MmEPUId4HI01gA8jQWgDyNBSBPYwHI01gA8jQeBrXIPfOKcM%2B8m7p93E9%2BvQZl5VUx75s8djSeeuiBTrfz0GjisAAWyR4%2BFDdOmdjt49LTUi97X0%2B2QdbhLhB5GgtAnsYCkKfxM4CDVB89gWfWhGLelz81D/lT8i66jStDxI8FcJDqYzVdTur8KXmdll1hAeLHXSDyNBaAPI0FIE/jZwCLPL1mXUL3yRO9fa/iOwB5GgvQB5e7nEGVYGqK6giuxAL0wYKi61VH6GT29OtUR3AlFqAPiucW4Af33QkhhOooAIBvfmM2li6YqzqGK4mMgsVSdYiOarfGPhPqRKfP1CNScVDpr0SOy74SwwZlKhm/LzILu/8NBTvxKFAcsoIDUTB1kuoYFAfuApGnsQDkaSwAeRoLQJ7GApCnsQDkaSwAeRoLQJ7GApCnsQDkaSwAeRqvBbLZyTON%2BHBPFUoildgWqUBzWzumj8tGQd4YzJo8FlcOSlcd0VNYgARraG7BpxWHURKpwLZIJXYePAopL74Ad%2BP2CDZujwAAsodkIj8vFwV5Y3DDxKuQmcYvuiQSC2Cxsy2t%2BMv%2BQ%2BcnfOTgUZiy51ecV9fU4sXwx3gx/DGAiwtRMCkXwZTkREX3JMcVoL6xCQNTB6iO0WPthondnx/DtkglSiIV%2BHDvQbS1G5Ztv2MhdE3DxOzhyM8bg4K8XHx17CgkJ/ktGyvR6hubVEfoxHEF2B7Zizlfm6I6RpcM08Su6gsT/qN91Whpa7dt7LKqIyirOoLnN26DT9cwYdSFQswYnwO/T7clS1/srfpcdYROHFeA1evfcFwBqmtqsS1SgZJIJUp2VuDM2WbVkQB88e7TsRApgSRMu3okCvJykZ83Bnk5I6A55GubALBuc4nqCJ047iuRALD6Hx5G8dwCZeN3nPDv7zqA2oazyrLEIy05gCm5V54vxKScEcq%2Bx1xWXoWvP/gTtNr0btlTjixAwO/Hb366Agtn32DLeMej9fh4XzVKIpXYUlaOw6fqbBnXboOCqbj%2BmtEoyBuD/LxcZA%2Bx57vEZeVVuOvRp3C05rQt4/WGIwtwzvzCGfj2nTdjyvgxlq7Fc%2Bmx%2BOqaWsu27SZDMwYm7BxEY1MzdlVWI7S5BP/zp7cc98p/jqMLYBlNgy%2BQAi05Bb4BadADPJQYi9nWivamszCbG9De1AhpWnc0y6kc9yHYEkLAl5x6YcInJQPO%2BSzoWJo/CUn%2BJCCYAcAbhegnBRDQAwH4BqRBS06BnpzqmEWr3OzSQhgtzWhvaoDZfBbtzY1AL07wOZVrC6AHkjnhbaYHkjvsPkoYLS3nC2E0N3a6xMMNbC2AX5qYXn8aQ9paev1coenQ/H4IXwCaPwloagOa6hOQkvrKbGuFbG/94k%2Bj9x96jyQl4y9pWTBsfDGzrQCphoEnDpZhZIs7j6mTPfakBPFk9kS0CXuu1Lft%2BwDzTx3m5KduXXP2DG49dcS28WwrwKiWRruGIpcbZ%2BOurW0F2JcStGsocrnq5DTbxrKtAOEJM1CeOdyu4ciljgzMxNsTZtg2nm0fgts0Hc9efyuuPV6NnLqT0OG%2BQ2aUOAYEDgez8OmwHDS32He1ra2HQQ2hYcfw0dgxfLSdwxJ1SQPQ%2B4PyRP1DiwaJqOoURIrUaxCyf178TtS9eg0QzvuiJpEdBOo0SLlTdQ4iRQ5oUggWgDxJmnKvpkFuVx2ESAUBsU%2BrLVlfBoHDqsMQ2U0Ks1QDIAH8WXUYIptF64brpV9cCyTxuuIwRPYSeBehkKEBQPRs1iYJHFOdicguAvJt4NzVoJ%2BsbtOA3ylNRGQfw6dp64EOl0MbuvhPAP1v3QuiS0hgc004dAzoUIAz4dB%2BAC8rS0VkE02Itef/3vEOXehPAjBtT0RkEwkcS23Da%2Bf%2BfVEBTm19ZTeAl2xPRWQTIcUvD30QOv9LHZ2%2BEunXxd8B4BWi1B%2Bd8vuwuuMNnQpQEw4dgxT/ZF8mIpsI8c814VBDx5tifik%2B6qtZBWCHLaGIbCFKo1rNc5feGntViHC43dTFEgBce5D6Awng%2BwiHO63X2OWyKGfCof1SiB9Yl4EHl6inLJ4rUq6KloS2xLrrsusC1W0N/RbCmjPERmurFZshD7B2roiPorXaj7q6t9uFsaKpjcsAsTXeGK3RkzBanPc7seQsRksTWqMnrdpcVArchUioy0b1aB3q4MziLN0n35fA%2BLjiCEDTk6D5/ADX86eOpITZ3gbTaIVFa6a1Sk3cVrcltPlyD%2BrxLMy4YWEOdO1dAFfFHY0osQwJeVddyfr13T2wx2uDRt/fcFBIUQTIiriiESWWIYEHezL5gT78dFxW0cKRpqH9GcDEXkcjSqwWCXlvTyc/0IfVoU%2BHNxzSWgMzJcSm3j6XKIGikLilN5MfAPS%2BjNR0uKylZUbeKwMakAJgJvgjpKSU%2BEgKMbeu5NVPe/3MeIfOvHHxPKnhvwBcEe%2B2iHpJQspV0VrtR5c71Hk5lrxyB2cWZwmffE4Ad1uxPaLuiVIB43u1JRvei2srVsUBgIxZC2%2BCqf8KkNOs3C5RBychxM%2BjWs1zsa7t6a0E7Ls/rmXk77wPQv4UEOOs3z551FFI8atASvILx99ca9kvLibww%2BvjWlZ%2B5K8MTT4sJG6Gjb9HRv2GIYHNmhBra7XUDQj/t%2BW/nWTL0ZvM/OJsaOZ8aYoFEJgFIMmOccmVagGxRQjzLZ%2BmrT%2B3ekOi2H74MmvGvUHT3zINmrgOUl4nhZgAU2ZAIANAhgCS7c5EtmoF0AAgCoEzAA4IYJ80sVcKs7RuuF6KUMi25Xn%2BH5ZIpNXNAmjAAAAAAElFTkSuQmCC%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABmJLR0QA/wD/AP%2BgvaeTAAAgAElEQVR4nO3deXzU9YH/8ffnO5M7hIRTEAkoXgSRRRSBgPGi2qpFIWrrevysra22a9vddtuu%2B1t3u93W3d7t2u1hl9Wq1QgetD%2BsiqYmQlG0LJpgPTgiopw5IGGSOT6/PwAFJJBjZj4z%2Bbyef0lIvvOuj8r3xcx8v2OEpBg599qiaHvHOGvMeGs03hgda6XhsmaIrB0qo6GSCiSV7vuRXElF7hYDQEZokWQl7ZIUk8wOyW6RtVsk866MtpqE3kwY%2B5fWUcFG1dTEHe8dMIzrAdlmzIzqgl1BokKh4HSTSJwmBZNl7CRJw11vA4ABrlPWvCFjX7NWq4y0MidsVm2rrdntelg2IgCOYtisq0dHTWyWMZopaaakv5KU43gWAGCvuKRGKz1vjJ5SEHumpfbRFtejsgEBcKiqG/JL4rvOCWQuMtLFVjrZ9SQAQI/FJL0gqyeVMI%2B1LK9Z7XpQpiIAJJVWzStVPGeeZBdIOldSoetNAIBksK/LmodMYB5qfq7mFddrMom3ATC8qro4lrAftzJXydq5kvJcbwIApFSjrLk7Hg7fs6v2ge2ux7jmXQAMrqw%2BI5D9tDX6hKQS13sAAGnXaaXFJkj8suWPi2u19yoE73gRAGNmVBfsCulaY3SzZKe63gMAyBhrZM13W/aU/VYv/SLqekw6DegAKJ55%2BYhwOHSLrG4Rl%2BkBALpl35b0g3Ai%2Bqvtzz%2B%2By/WadBiQAVA684pyEwRfTxhdb6R813sAAFljuzW6c1DU/OemFTV7XI9JpQEVAMUzLx%2BREw59OWF1Gyd%2BAEA/bLVW328d1P5DLV3a6XpMKgyIACiZUT0kCNvbrfQ5TvwAgOSxb8kEX255ruZx10uSLbsDoKoqPDg2/EZj7L%2BK1/gBAKnzTJCwf7Pz%2BUUNrockS9YGwOA5C%2BYaqx9Imuh6CwDAC11G%2BnFuQcEdW568t931mP7KugAonnn5iHAo%2BK5krnW9BQDgpfXW2s%2B01i962vWQ/siqABhcuaDaGN0laZjrLQAAr1nJ/iYRC77YtqJmp%2BsxfZEVATB0RvWxibDutrIfcb0FAIADbFKQuK7lj4ufdT2ktzI%2BAEorqy%2BXsb%2BUNNT1FgAADsPK6CctO8xX1FDT5XpMT2VsAIyZUV2wO8d%2BR1Z/43oLAABHZbQqIfvJtucWveF6Sk9kZAAMnXPVqbFEfLExOsX1FgAAeqFN0nUtdQ8/5nrI0YRcDzhU6Zzqy6xN/N4YjXG9BQCAXsqTdFXBuIkFkbMqnlVjY8Z%2B0mDmPANQXR0q22K/Za2%2BqkzaBQBAH1ijpUrkXtNaf3%2Bz6y2HkxEn2pFzry3qjEQekLWXut4CAEDy2LfiieBju56v%2BYvrJYdyHgDDZl8xKqZgiaQzXG8BACAFdppA85r/%2BHCd6yEHClw%2BeFnV5ZNiCv4kTv4AgIFrSCKhJwdXLqh2PeRAzt4EWFI5f7qxwTJJx7jaAABAOhgpbIzm55dPbI40Nb7geo/kKABK51wxxyhYKqnUxeMDAOCAkXRxwbiJBZGNjc4/RyDtATCksvoiK7NEUnG6HxsAgAxQuS8ClrkckdYAGFJZfVHC2Ecl5afzcQEAyDCV%2BeWnDo00rX3C1YC0BUDZ7CtmWWOWSCpI12MCAJC5zFn54yaWRTY2OomAtARASeX86cYEfxBP%2BwMAcKDp%2BeUTB0eaGv%2BQ7gdOeQCUVV0%2Bad%2B7/Qen%2BrEAAMhCM/LLJ4YiTY1p/UjhlAbAsNlXjErY0DPiUj8AAI7knPzyU9siTWv/lK4HTFkAjD7j0sLOnJwnJFWk6jEAABg4zNz8sRXrIk2Na9LxaKkJgOrqUKgztEjSuSk5PgAAA4%2BR0Ufzx06sjzQ1bkj1g6XkVsBlW%2By3JF2SimMDADCA5cno0SGzqyem%2BoGS/mFApbMXfFzSI6k4NgAAfrAb4qHcM3fVPrA9VY%2BQ1GcABs2qPlnSPeLkDwBAP5hxoVh0sSqqc1P1CEkLgOFV1cXB3rv8lSTrmAAAeMtodumQxPdSdfikBUA0lvihMTolWccDAADm86Vz5l%2BfkiMn4yClldWXy9jFyTgWAAD4gJUixsbPbql/5H%2BTedx%2BB8CwWVePjgWxNZKGJmEPAAD4EPt6OBGdtv35x3cl64j9fgkgHsR/LU7%2BAACkkDkpFuTelcwj9utGQPtel/i7JG0BAADdm1wwbuKbkY2NryTjYH1%2BCWBQ1SeGheLRRknDkzEEAAAcVauxZnJzfU1Tfw/U55cAgnj0J%2BLkDwBAOg22sr%2BR7uj3S/h9eglg8JwFc410Z38fHAAA9JJRef64bc2RjY0r%2B3eY3qqqCpfGhv9Zxk7qzwMDAIA%2B67DWntZav2hdXw/Q66cQSmNDb%2BHkDwCAU4WBCfp1VUCvXgIYXPnJMmMSiyQV9udBAQBAv00oGFfxRl%2BvCujVMwDGdP2juOYfAICMYK39QcmM6iF9%2BdkeB8Cw2VeMkvTZvjwIAABIiRFB2N7Rlx/scQBETXC7pIK%2BPAgAAEiZW8rmVJ/W2x/qUQCUVVaPNVaf6v0mAACQYiFr7Q96%2B0M9fAbAfkNSXm8PDgAA0uL8ssoFl/TmB44aAMUzLx9hja7r%2ByYAAJBqVubbvblD4FG/MRwKbhWv/QMAkNmMnVQ2p%2BHqHn/7EX%2B36ob80tjuDTIa2e9hAAAg1d5s6RgyUS/9Inq0bzziMwCDY%2B3XcfIHACBrTBhcuOOGnnzjEQPAGN2clDkAACAtjMzXVVUVPtr3dRsAg2fNnybZqcmdBQAAUmx8WWxo9dG%2BqdsACEL6dHL3AACAdLDGfE1HeZ/fYX9zeFV1cTRu35FUkophAAAgtQJrLt5ZX/NEt79/uC/G4ol54uQPAEDWiht725F%2B/7ABYGWuSs0cAACQDkb6yKDKq07q7vc/FAClVfNKJV2Y0lUAACDVTNjEu30/34efAYiFLxf3/QcAIOtZ6VOjz7i08HC/9%2BEAMJqf8kUAACAdyvYU5H78cL9xcABU3ZAv6dx0LAIAAKmXMMFfH%2B7rBwVASXzXOZIO%2B1QBAADIPkZ27vCq6mMO/fpBARBYXZy%2BSQAAIA3C0YQ%2BdHXfQQFgjLkofXsAAEA6WOlDHxP8/p0Ah826enQsiL2T3kkAACANEmElxmyvW/zu/i%2B8/wxANBStdLMJAACkWBCVueSgL%2Bz/B5PQzPTvAQAA6WBkDroc8IP3AJiAAAAAYICy0vljZlQX7P91IEl7v2CnuJsFAABSyUj5u0KJWft/HUhSW1inScpxtgoAAKReoKoP/lGSkZ3sbAwAAEgPa87b/497A8DaSe7WAACAdDDSmcOrqoul/W8CNOZ0p4sAAEA6hKOJ%2BFTpg6sAJjocAwAA0iURmiZJwci51xZJGuF4DgAASAOrxBmSFHR17R7vegwAAEgPYzRNksKKBeM/%2BEQAZKpBRQWaO%2BMMzZk6SZMmlGvsMSM0uLhIOeGQ62kAPBXpiqptd4de2/C2VjW8rqXPr9Kqxjdcz8JRmRNUUZ1rSmcv%2BIKkH7ueg8ObcNwo3fbJeZp//iwV5Oe5ngMAR9S4rkk/vO9RLVpWr0TCup6DboRC9lRTNmfBd6zV37seg4Pl5%2BXqH266Wp9d8FGFQ/wtH0B2efm1N3Xrt%2B/Sa%2Bvfdj0Fh2PMxwObsMNc78DBThgzSs/84tv6/FWXcvIHkJWmnjJBz/7yTs07d4brKTgMK3tSKL%2B84kZJp7geg70mnzheS358h8pHcWEGgOwWDoV02Tlnq7ltl15e%2B6brOTiAsXZtKL984q2Sxroeg71/81/y4zs0rLTE9RQASApjjC48e6p2te/Riw2vu56DfawxGwJrxUsAGSAvN0cL/%2BXLnPwBDEjfvOU6nX8WHzqbKYw1IwNjVOx6CKTbP/0JTZowzvUMAEiJIDD6r9u/oGNHDHU9BZJk7IhAEteWOTbhuFH67IKPup4BACk1rLRE//K5a13PgCTJlgSScl3P8N1tn5zHu/0BeOHy82Zq6ikTXM%2BATD4B4NigogLNP3%2BW6xkAkBbGGH3jpqtcz4BEALg2d8YZ3OEPgFeqpk3WiCGlrmf4riCQxHPPDs2ZOsn1BABIq1AQ6LJzznY9w3fhwPUC302aUO56AgCk3dwZf%2BV6gvcIAMfKR410PQEA0u7U8dx/zjUCwLFBhQWuJwBA2g0fMtj1BO8RAI7l5oRdTwCAtMvLyXE9wXsEAAAAHiIAAADwEAEAAICHCAAAADxEAAAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIfCrgcgM3RGo1r42FN6%2BOl6Na5rUkek0/UkIG1Kigp1%2BknH66YrPqLLzjnb9RwgLQgA6N1tO3Xl339br765wfUUwIm29g7V/flV1f35VV1x3kzd9Q%2BfV15OjutZQErxEoDnOqNRTv7AARY/s1xf%2BM7PXM8AUo4A8NzCx57i5A8couapOj254mXXM4CUIgA8V/NUnesJQEb6xeKlricAKUUAeO61DZtcTwAy0qqGN1xPAFKKAPBc%2B56I6wlARmrd3e56ApBSBAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAsBzg4oKXE8AMhL/bWCgIwA8d1bFya4nABnp5HHHuZ4ApBQB4LnPzL/Y9QQgI1154WzXE4CUIgA8N3fGVFXzBx1wkNNOHKfrL73A9QwgpQgA6Cdf%2B5yuOG%2Bm6xlARjjtxHF68DtfV24On5aOgY3/h0N5OTm6%2B44vad55M3X3I3/Q6r%2Bs4zao8EpRQb4mHj9W1RfO1vWXXsDJH17g/%2BV436VzpuvSOdNdzwAApAEvAQAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHgo7HoAMkMsFtMz9S9oxarV2rR5izq7ulxPApAkhQX5Kj9utC6YM0NnTpnkeg4yBAEANbe06Xs/W6imd951PQVACnTsiWjt6%2Bu09vV1mj51sm6%2BrlrhMH/8%2B46XADwXi8U4%2BQMeWfnyGv3qvkWuZyADEACee6b%2BBU7%2BgGeWv7haq199zfUMOEYAeG75i6tdTwDgwNPPrXA9AY4RAJ7b/N4W1xMAOPDm%2BibXE%2BAYAeA5Y4zrCQAcsNa6ngDHCADPTRhf7noCAAeOPWak6wlwjADw3IXnzHA9AYADM86c4noCHCMAPDdl0imayR8EgFfGjhmlcyvPcj0DjhEA0E3XzNf0qZNdzwCQBmPHjNLffvYGhUMh11PgGLeCgsLhsG698ROaPnWyltWt0Pqmd9SxJ%2BJ6FoAkyc/L1ZjRx2jGtCk6t/IsTv6QRADgANOmVGjalArXMwAAacBLAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHuKzACBJisVieqb%2BBa1YtVqbNm9RZ1eX60nAgFdYkK/y40brgjkzdOaUSa7nwDMEANTc0qbv/Wyhmt551/UUwCsdeyJa%2B/o6rX19naZPnaybr6tWOMwfy0gPXgLwXCwW4%2BQPZICVL6/Rr%2B5b5HoGPEIAeO6Z%2Bhc4%2BQMZYvmLq7X61ddcz4AnCADPLX9xtesJAA7w9HMrXE%2BAJwgAz21%2Bb4vrCQAO8Ob6JtcT4AkCwHPGGNcTABzAWut6AjxBAHhuwvhy1xMAHODYY0a6ngBPEACeu/CcGa4nADjAjDOnuJ4ATxAAnpsy6RTN5A8cICOMHTNK51ae5XoGPEEAQDddM1/Tp052PQPw2tgxo/S3n71B4VDI9RR4gltOQeFwWLfe%2BAlNnzpZy%2BpWaH3TO%2BrYE3E9Cxjw8vNyNWb0MZoxbYrOrTyLkz/SigDA%2B6ZNqdC0KRWuZwAA0oCXAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHiIAAADwEAEAAICHCAAAADxEAAAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQ2HXA4CBoHFdk%2B753TL98aVX1PTuVnVEOl1PGlBKigp1/JhjdMns6br%2Bsgs0rLTE9SQg65nS2Qus6xE%2Ba36uxvUE9ENnNKpv/GShFj7%2BlBIJ/lNKh9JBRbrztht15dw5rqegn8rmVLue4DWeAQD6qDMaVfXf/Zvq/vyq6yleadnVrs9%2B66favG2nvnjNPNdzgKzFewCAPvr6jxdy8nfEWqt/%2BcX9WvLcStdTgKxFAAB90LiuSf%2Bz5CnXM7xmrdXffe%2BX2t2xx/UUICsRAEAf3Pu7ZbzmnwG2Nrdq4ZKnXc8AshIBAPTBs6vWuJ6AfR6v/ZPrCUBWIgCAPti0ZbvrCdjn9Y3vuJ4AZCUCAOiD9j0R1xOwT%2BvudtcTgKxEAAAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB7iswCANErXhz8l%2B0NWsnU3gO7xDAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHiIAAADwEAEAAICHCAAAADxEAAAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB4Kux4A%2BKRsTrXrCX2SrbsBdI9nAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHiIAAADwEAEAAICHCAAAADwUdj0A8EnzczVpeZyyOdVJPV5fdyd7B4Dk4RkAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEN8GiCAo0rWp/r19lMF%2BTRBIHV4BgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEN8FgCQRr7f2973//1AJuEZAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEANAHJUWFridgn0FFBa4nAFmJAAD64KRxY1xPwD5jRgx3PQHISgQA0AeXnTPd9QTsc%2B6Zk11PALISAQD0wQ2XXqjhZYNdz/BeKAh03SXnu54BZCUCAOiDQUUF%2Bu6Xb5IxxvUUr910xUU6mZdjgD4hAIA%2Buuycs/V/P/NJIsCRqmmT9c1brnM9A8haBADQD1%2B8Zp5%2BfvsXVFZS7HqKN0JBoJsXfFQP/fs3lBMOuZ4DZC0%2BDAjop%2BoLZ%2BvcM0/XPUue1u/qXtC6Te%2BpdXe761kDSlFBvsYeM0LnnTVZ137sfJ72B5LAlM5eYF2P8FnzczWuJwCAE3w6pFu8BAAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHiIAAADwEAEAAICHCAAAADxEAAAA4CECAAAADxEAAAB4iAAAAMBDBAAAAB4iAAAA8BABAACAhwgAAAA8RAAAAOAhAgAAAA8RAAAAeIgAAADAQwQAAAAeIgAAAPAQAQAAgIcIAAAAPEQAAADgIQIAAAAPEQAAAHiIAAAAwEMEAAAAHiIAAADwEAEAAICHwq4HAEif7W3tWvnaBtU1rFN9w1uKRGM686Sxml1xvM457UQdO3Sw64kA0oQAAAaw3ZFOrX7rHdU1vKX6hnV6deO7stYe9D2/f6FBv3%2BhQZI0dniZKitO0OyK4zVz4niVFRe6mA0gDQgAYADp6OzSy29uev%2BE37DxXSUOOeEfSdO2Zt1fu0r3166SdHAQzJ50gkoK81M1HUCaEQBAFovFE1r79nuqb1inuoa3tPIvGxWNxZN2/AODIBQEmjj2GFVWHK/ZFSdo2onHKT83J2mPBSC9CAAgi8QTCTU2fXDCf/H1JnVGY2l77Fc2bNYrGzbrZ7%2BvVzgU6NTjPgiC6SeXKyccSssWAP1HAAAZrmlbs%2Bob3lJdwzrVvfqW2joiridJ2vvsw4FBUJiXq6kTxmh2xQmqrDheFeWjFBjjeiaAbhAAQIY58IS/vHG9mnd3uJ7UIx2dXapvWKf6hnWSpOL8PE054dj3g2BS%2BSgZggDIGAQA4NiWll1a9XqT6hrW6Y%2BvvKF3drS6npQUuyOdBwXB0JIinX3KOM2uOF6VFSdo7PAyxwsBvxEAjnVGo8rL4Y1UPjn0Wvymbc2uJ6XFjrb2gy45HFE6iHsQeKwzGnU9wXsEgGM7Wto0evhQ1zOQQj25Ft9HW1t2cQ8Cj7VlyUtbAxkB4NjadW8TAANMf6/F9xX3IPDLxs1bXE/wHgHg2B9WvKTzp09xPQP9kOpr8X3FPQgGtlfe2uh6gvdM6ewF/NXEoZFDy9S46OcKAt4dnS1cXouPvbgHQfb7P//0fT367ArXM7xGAGSAxd//R507bbLrGTiCTL0WH3txD4Ls0hHp1Ekfv0nte/jvyCVeAsgA3/rlA6o64zSukc4g2Xotvq%2B4B0F2qXmqjpN/BuAZgAzx63/%2Bki4/d6brGd4aqNfiYy/uQZA5uqIxTb/2i9rAmwCdIwAyxLEjhuqPd/%2BHhg4e5HqKF3y9Fh97cQ8Cd35436P655/f53oGRABklDlTJ2nR925XOMSbmZKNa/FxJNyDID1ebHhdl/7NHdwEKEMQABnm1qsu0b/eer3rGVmPa/HRH9yDIPne2bpD533ma9q6s8X1FOxDAGSgmy6/SHfediOXBvYC1%2BIjVbgHQf%2B9s3WHrvzqv6lxXZPrKTgAAZCh5p07Qz/7xueVn5frekpG4lp8uMI9CHrnxYbX9df/8B/8zT8DEQAZ7KTyY/WfX79V0yae6HpKRuBafGQi7kFweF3RmP7zwSW6879reM0/QxEAGc4YoyvOn6UvfvLjmjRhnOs5acW1%2BMhGvt%2BDoCPSqYeerNOP7n%2BUS/0yHAGQRc44dYIunnWmplWcqFPGjdHgQcUD6rVIrsXHQDSQ70HQFY2pdXe7Nr67Va%2B8sV51LzfoyT%2B9zE1%2BsgQBAGdMKKxwfqGC/GKFCwoV5PB%2BBwx8Nh5TLNKhRGS3oh3tsjGeHocb3AoY6RMECucVKsgvVLigWKE8Lq2Cf0worJyiEqmoRHlDpUS0S7E9e4MgtqddNsHVK0gPAgCpY4zC%2BUUfnPBz8yV/XgoFeiTIyVVuTq5UUiqJIED6EABIIqNQXp7CBcUK8gsVyi/y6s1PQDIcGgTxzohie3YrEelQLNIucUMrJAkBgH4J5eVzwgdSKJSXf8DLZVbxzs73gyAeaeeW1ugzAgC9EuTk7n3DXn6xwgVFMgE3QAHSxxwcBNYqFmnf%2B%2BzAnt2Kd0UkegA9RADgiDjhAxnMGIULiqWCYuWWjZASCcU6Oz4Igk4ux0P3CAAcxITD%2B96pX6ycwiKZ8MC5zwAw4AXBQUGQiMcUj%2Bx/Q2GHEtEu1wuRQQgAz3EtPjBwBaGwgv2XHIp7EOBgBIBvuBYf8Bb3IMCBCICBjmvxAXSDexD4jQAYcLgWH0DfcA8CvxAAPXRcZ4fOb96iSR2tGh7tVB5lDAAZoSMU0ns5BXqxZIiWlY5UW4g3L/cEHwZ0FDnW6rot63VB8xYZLrAFgIzWHgrrv0eOV/3g4a6nZDyeATiCHGv1tbcbVNHe5noKAKAHiuIx3br5DQ2Ndemxoce6npPRAtcDMtn1W9Zx8geALGMkXb11o85q2%2BF6SkYjALqx9zX/ra5nAAD6wEi68b31yuf9Wt0iALpxXstWXvMHgCxWGu/SBc1bXM/IWARANya3t7ieAADop%2Bm7eRmgOwRAN4ZGO11PAAD00%2BjODtcTMhYB0I0E984BgKwXWP4w7w4B0I3NuQWuJwAA%2Bml7Lh9w1h0CoBsrBw1zPQEA0E9rCge7npCxCIBuLBs2Wm1hyhEAslXCGNUOG%2BN6RsYiALoRGjdR90%2BezYWAAJClassnqmXC6a5nZCwC4AheOma8Fp98JhEAAFlm7bBj9dApZ7uekdH4LICjeOKE09WSX6Sr165QUReXBgJAJksYo9ryiXrolLMVD7gC4EgIgB7407ET1DB8jGa//Zr%2B6r2NGtHRqsJol%2BtZAABJkVCOdhQOUuOw0ao77mS9W1zmelJW4OOAuzFo/ETXEwAASbBrfaPrCRmJ9wAAAOAhAgAAAA8RAAAAeCiQxIclAwDgl3ggKeJ6BQAASKvOQBIXtwMA4JdOngEAAMAzVuoMrGyr6yEAACB9jNQVGJktrocAAIA0sqYtMLIEAAAAPjF2e2ANzwAAAOAXsyOw1mxyPQMAAKSPkd0ZGCXecD0EAACkT0LaHgQJEQAAAHgksNoU7CzpeFPcDhgAAH9YrQ%2B0dGmnpPWutwAAgPQIQqENgSRZaZXrMQAAIC1sXnvHxr0fB2z0kuMxAAAgPd7b/NKSjkCSTIJnAAAA8ILVq5IUSFLYdr0k3ggIAMDAZ%2Bwr0r4A2P7847sk87LbRQAAIOWM1kj7AkCSjLHPuFsDAADS5OAAiFv7rLstAAAgDbpagkFrpQMCoKCgsF5Sl7NJAAAgpaz0kmoXRqQDAmDLk/e2GxmeBQAAYIAKZOs/%2BOeDPZbmLQAAIE2szPP7//mgAAglQo9JsmlfBAAAUs3G4vEV%2B39xUABsf/63myXDTYEAABh4Xt29/JGt%2B39x6EsAktVv0zoHAACknJGWHvjrDwVANBq%2BT1IsbYsAAEDK2SDxxIG//lAAtK98YLsBRmYAAAj6SURBVIuRWZa%2BSQAAIMXaWwr3LD/wCx9%2BCUCSjL03LXMAAEAamKe0dGnngV85bAAURc1iSTvTsgkAAKSUsYmHDv3aYQNg04qaPZJdmPJFAAAgpawUMdH83x/69cO/BCDJxsN3SUqkdBUAAEgpI/P7nSvvazv0690GQOvyB98yMk%2BldhYAAEgla%2B2Dh/t6twEgSUrYH6VkDQAASIeWQXHzu8P9xhEDoPn5h5dK%2BnNKJgEAgBSzv9n7vr4PO/IzAJKMMd9N/iAAAJBy8eDu7n7rqAHQPFIPSvat5C4CAACpZV5sWV6zurvfPWoAqKYmbo35j6RuAgAAKWWNfn6k3z96AEhqbR/ya54FAAAga2xtDYruO9I39CgA9NIvorLBPydlEgAASCljzY9VuzBypO/pWQBIaqmvuE/Smn6vAgAAqdQRy4v919G%2BqccBIN2RkDH/2J9FAAAg5e7eteyRHUf7pl4EgNTyXM3jRuYPfd8EAABSxUqRIJT49558b68CQJKM9GVJsV6vAgAAKWWkn%2B2sXbypJ9/b6wDYWVfTKHvkSwsAAEDatUe7cu7s6Tf3OgAkKZ4X/ydJ2/ryswAAIPmM0U/bVz6wpaff36cA2LXskR2y5m/78rMAACDptirXfLs3P9CnAJCklvqae430ZF9/HgAAJIeVvb356ZrW3vxMnwNAkmwofLOk9v4cAwAA9IPR6tZjgl/39sf6FQAttb/dIFnuDQAAgBtWCX1JNTXx3v5gvwJAklrqTvuRpGf6exwAANBb9n9a6h%2Bu7ctP9jsApDsSQShxvaTm/h8LAAD00PaYgq/29YeTEADSztrFm2TNbck4FgAAODojfWF3XU2fL8lPSgBIe68KsNben6zjAQCAbv2uue7h3/bnAEkLAEnKDQc3W9m1yTymK9Za1xMAAP2VSLhekArbckLm0/09SFIDYFttze4glLhSUkcyj%2BtEotdvqAQAZBg78ALAGms/ta225r3%2BHiipASBJzbWPvCqrzyf7uOkW74q4ngAA6Kd4dID9WW51V3P9oiXJOFTSA0CSWuof/m9rdFcqjp0u8Uj2P4kBAL5LDKw/y9cUx81XknWwlASAJLUG229TFt8fILqreaC%2BdgQAfrBWXW0D5gr1lkTIzN%2B0omZPsg6YsgBQbW0sETPVkt5M2WOkkI3HFdnxrusZAIA%2Biux4V3ZgvJ/Lypob22prkno%2BTV0ASGpbUbMzSNh5knr1AQWZIrq7VZFtm3kmAACyibWKbN%2Bs6K4W10uS5V9b6mseSfZBTbIPeDillQuqZPSEpLx0PF6ymVBIOcWlChUWKxTOkwmFJJOWf3UAgKOxVjYeVzwaUSLSoa625oHyN3/JanFL/aRq6Y6k/000bWexwXPmX2mseUApftYBAIABwWhVXn5B1ZYn703Jp%2B6GUnHQw%2BncuLahoLxim6SPpesxAQDIUuujXTnnNz93X8rexZi2AJCkSFPjqvzyiSFJ56TzcQEAyCLbQyF7QevzD21M5YOkNQAkKdLU%2BGxe%2BcQ8I81O92MDAJDh2mzCzm2uW7Qm1Q%2BU9gCQpM6mxmUF5RMLJc1y8fgAAGSgDpnEx1rrF69Ix4M5CQBJijQ1LssvP3WoZM5ytQEAgExgpYisvay1bvGz6XpMZwEgSZGmtUvzx000kqpc7gAAwKEOGc1rrVv0VDof1GkASFJkY2Nt3tiJEWN0gestAACkWatR4uKWukW16X5g5wEgSZ1Njc8XlFfskHSR0nhvAgAAHNpurZnbUr9opYsHz4gAkKRIU%2BMLeeUVjUa6VFKO6z0AAKTQulDIXtD83MOvuBqQcX/bLqmcPz0w5nFJI1xvAQAgBV6IduVc1r7ygS0uR2TcbXnb6hettPHQTCP9xfUWAACSympxccxUuT75SxkYAJLUuvzBtxI2d4aV%2BX%2ButwAAkARW0jdb6idVb1pRs8f1GCkDXwI4hBlcueCrxujflKGxAgDAUbTJmhtS8ZG%2B/ZHpASBJKp1TfZmsvUfSYNdbAADohTWJkJnfVlvzpushh8qKv1W3PFfzuOKJ0yXVu94CAEDP2HvzCgpmZuLJX8qSZwDeV1UVLk0Mu11WtyuDLmEEAOAA24y1n2quX7TE9ZAjya4A2Ke0ckGVjL1HMse53gIAwAF%2BF%2B3KuSkT3uV/NFkZAJI0ZPo1JYm8zm/K6vPKkpcyAAAD1lZZfaWl/uF7XA/pqawNgP3KKqsrZeyvrHSy6y0AAP8Yo5pYkHPLrtoHtrve0htZHwCSNPqMSwv3FOb9k5W%2BKCnX9R4AgAeMViuhL7XUP1zrekpfDIgA2K%2BkqnpCELc/kHSJ6y0AgAFrh4z5ZstI/VQ1NXHXY/pqQAXAfmWV8y%2B1xnxP0omutwAABox2Y/RT5ZpvNz9d0%2Bp6TH8NyACQJJ3xmZzSgp2fkNEdksa7ngMAyFpdxtiFIWvv2F63%2BF3XY5Jl4AbAPmNmVBfsDulzMvbrkoa53gMAyBrtkn4dipk7d6yoecf1mGQb8AGw3/Cq6uJo3N4k6UuSxrreAwDIUFZbjMxPYnmx/9q17JEdruekijcB8L4zPpNTVrTzSmvNVyR7uus5AIBMYV60Rj9vLdr9Gy1d2ul6Tar5FwAHKJ1zxRzZ4NNWWmCkfNd7AABp1yLZ38gmftVS/8j/uh6TTl4HwH4lM6qHBDm6VgndJGMnud4DAEipPbJaagP74KBosGTTipo9rge5QAAcYsis%2BRWJkKm21l5pZE51vQcAkBS7ZfSUkXk4FO9csv35x3e5HuQaAXAEZXOqT1NCl1nZj8hohqSw600AgB5bY2T/kDDBE607VK%2BGmi7XgzIJAdBDQ6ZfU5LIjZxnpblGwUzJVoggAIBM0WWll4zVchnVxWSW766r2eZ6VCYjAPpo5Nxrizoj7WdYBWcFCZ1pjTnZyp7MmwkBIOU2S6ZRSqyRgles4mtaQyWNql0YcT0smxAASXVHMHhOQ7m1iZNCRhOs1QgjM8oac4yxdoSVhmvvv/PSfT9Q5nAsAGSC3ZKikuKS2mRNh4x2ytgdxmp7QtoWWL2jwG4IFF6/IyhYz4k%2BOf4/dgtfluqkpLEAAAAASUVORK5CYII%3D%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D">
+<title>Πινακίδα Παραχώρησης — Γεννήτρια</title>
+<style>
+  :root{
+    --ink:#0a1722;
+    --muted:#5d6b78;
+    --line:#c9d2da;
+    --sea:#1d5e7e;
+    --sea-deep:#103d54;
+    --paper:#ffffff;
+    --field-bg:#f4f7f9;
+    --accent:#b8141a;
+    --shadow:0 1px 3px rgba(16,40,60,.08),0 8px 28px rgba(16,40,60,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:#e7edf1;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1180px;margin:0 auto;padding:18px 16px 60px;
+    display:grid;grid-template-columns:360px 1fr;gap:22px;
+  }
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+
+  /* ---- control panel ---- */
+  .panel{
+    background:var(--paper);border-radius:14px;box-shadow:var(--shadow);
+    padding:20px 18px;align-self:start;position:sticky;top:18px;
+  }
+  @media(max-width:900px){.panel{position:static}}
+  .panel h1{
+    font-size:15px;letter-spacing:.04em;text-transform:uppercase;
+    margin:0 0 2px;color:var(--sea-deep);
+  }
+  .panel .sub{font-size:12px;color:var(--muted);margin:0 0 18px}
+  .fld{margin-bottom:14px}
+  .fld label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .fld input[type=text], .fld input[type=date], .fld textarea{
+    width:100%;border:1px solid var(--line);border-radius:8px;
+    padding:9px 10px;font-size:13px;font-family:inherit;background:var(--field-bg);color:var(--ink);
+  }
+  .fld textarea{resize:vertical;min-height:54px;line-height:1.4}
+  .fld input:focus,.fld textarea:focus{outline:2px solid var(--sea);border-color:var(--sea);background:#fff}
+  .filebtn{
+    display:flex;align-items:center;gap:8px;border:1px dashed var(--line);
+    border-radius:8px;padding:9px 10px;font-size:12.5px;color:var(--sea);
+    cursor:pointer;background:var(--field-bg);
+  }
+  .filebtn:hover{border-color:var(--sea);background:#fff}
+  .filebtn input{display:none}
+  .filehint{font-size:11px;color:var(--muted);margin-top:4px}
+  .ky-tabs{display:flex;gap:6px}
+  .ky-tab{
+    flex:1;border:1px solid var(--line);border-radius:8px;padding:9px 6px;font-size:12.5px;
+    font-family:inherit;background:var(--field-bg);color:var(--muted);cursor:pointer;font-weight:600;
+  }
+  .ky-tab:hover{border-color:var(--sea)}
+  .ky-tab.active{background:var(--sea);color:#fff;border-color:var(--sea)}
+  .btn-help{
+    width:100%;border:1px solid var(--sea);background:#eef3f6;color:var(--sea-deep);
+    border-radius:9px;padding:9px;font-size:13px;font-weight:600;cursor:pointer;
+    font-family:inherit;margin-bottom:4px;
+  }
+  .btn-help:hover{background:var(--sea);color:#fff}
+  .modal-back{
+    position:fixed;inset:0;background:rgba(10,23,34,.55);z-index:100;
+    display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow:auto;
+  }
+  .modal-back.open{display:flex}
+  .modal{
+    background:#fff;border-radius:14px;max-width:640px;width:100%;padding:26px 28px;
+    box-shadow:0 20px 60px rgba(16,40,60,.3);
+  }
+  .modal h2{margin:0 0 4px;font-size:18px;color:var(--sea-deep)}
+  .modal .lead{margin:0 0 18px;font-size:13px;color:var(--muted)}
+  .modal h3{font-size:14px;color:var(--sea-deep);margin:18px 0 6px;display:flex;align-items:center;gap:8px}
+  .modal h3 .step{
+    background:var(--sea);color:#fff;width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none;
+  }
+  .modal p,.modal li{font-size:13px;line-height:1.55;color:var(--ink)}
+  .modal ul{margin:4px 0 0;padding-left:20px}
+  .modal a{color:var(--sea);word-break:break-all}
+  .modal .note{background:var(--field-bg);border-left:3px solid var(--sea);padding:8px 12px;border-radius:0 6px 6px 0;font-size:12.5px;margin:10px 0}
+  .modal-close{
+    float:right;border:none;background:none;font-size:24px;line-height:1;color:var(--muted);
+    cursor:pointer;margin:-6px -6px 0 0;
+  }
+  .modal-close:hover{color:var(--ink)}
+  .has-file{color:var(--sea-deep);font-weight:600}
+
+  .coord-grid{display:grid;grid-template-columns:30px 1fr 1fr 26px;gap:6px;align-items:center;margin-bottom:6px}
+  .coord-grid input{width:100%;border:1px solid var(--line);border-radius:6px;padding:6px 7px;font-size:12px;background:var(--field-bg)}
+  .coord-grid .idx{font-size:12px;color:var(--muted);text-align:center}
+  .coord-head{font-size:11px;color:var(--muted);font-weight:600;text-align:center}
+  .xbtn{border:none;background:none;color:var(--accent);cursor:pointer;font-size:16px;line-height:1}
+  .addrow{font-size:12px;color:var(--sea);background:none;border:none;cursor:pointer;padding:2px 0;font-weight:600}
+
+  .actions{display:flex;gap:8px;margin-top:18px}
+  .btn{
+    flex:1;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:600;
+    cursor:pointer;font-family:inherit;
+  }
+  .btn-print{background:var(--sea);color:#fff}
+  .btn-print:hover{background:var(--sea-deep)}
+  .btn-png{background:#eef3f6;color:var(--sea-deep);border:1px solid var(--line)}
+  .btn-png:hover{background:#e2eaef}
+
+  /* ---- preview / the sign ---- */
+  .stage{display:flex;justify-content:center;align-items:flex-start}
+  .sign{
+    width:680px;max-width:100%;background:#fff;color:#000;
+    border:1px solid #000;padding:26px 30px 30px;
+    font-family:Arial,Helvetica,sans-serif;box-shadow:var(--shadow);
+  }
+  .sign-title{
+    text-align:center;font-weight:800;text-decoration:underline;
+    font-size:17px;line-height:1.35;margin:0 0 18px;text-transform:uppercase;
+  }
+  .rows{margin:0 0 14px}
+  .row{font-size:13.5px;font-weight:700;margin:3px 0;line-height:1.45}
+  .row .n{color:var(--accent);font-weight:800;margin-right:4px}
+  .row .v{font-weight:700}
+  .qr-block{display:flex;flex-direction:column;align-items:center;margin:14px 0 18px}
+  .qr-block img{width:150px;height:150px;object-fit:contain;display:block}
+  .qr-placeholder{
+    width:150px;height:150px;border:2px dashed #aaa;display:flex;align-items:center;
+    justify-content:center;color:#999;font-size:11px;text-align:center;padding:8px;
+  }
+  .qr-code-label{font-size:11px;margin-top:4px;color:#222}
+  .section-head{
+    text-align:center;font-weight:800;text-decoration:underline;font-size:13.5px;
+    margin:6px 0 8px;text-transform:uppercase;
+  }
+  .ortho{width:100%;border:1px solid #444;display:block;margin:0 auto 18px;max-height:330px;object-fit:cover}
+  .ortho-placeholder{
+    width:100%;height:230px;border:2px dashed #aaa;display:flex;align-items:center;
+    justify-content:center;color:#999;font-size:12px;margin-bottom:18px;text-align:center;padding:10px;
+  }
+  table.coords{border-collapse:collapse;margin:0 auto;width:62%}
+  table.coords th,table.coords td{
+    border:1px solid #555;font-size:12.5px;padding:4px 8px;text-align:center;
+  }
+  table.coords th{background:#eef1f3;font-weight:700}
+  table.coords td.aa{width:34px}
+  .coordimg{max-width:80%;display:block;margin:0 auto;border:1px solid #555}
+  .credit{text-align:center;font-size:9px;color:#777;margin-top:16px;letter-spacing:.03em}
+
+  /* ---- mobile (phones) ---- */
+  @media(max-width:560px){
+    .wrap{padding:12px 10px 50px;gap:16px}
+    .panel{padding:16px 14px;border-radius:12px}
+    .panel h1{font-size:14px}
+    .ky-tabs{flex-direction:column}
+    .sign{padding:18px 16px 22px;border-width:1px}
+    .sign-title{font-size:14px;margin:0 0 14px}
+    .row{font-size:12px}
+    .section-head{font-size:12px}
+    .qr-block img,.qr-placeholder{width:120px;height:120px}
+    table.coords{width:100%}
+    table.coords th,table.coords td{font-size:11px;padding:3px 4px}
+    .modal{padding:20px 18px;border-radius:12px}
+    .modal h2{font-size:16px}
+    .actions{flex-direction:column}
+  }
+
+  @media print{
+    body{background:#fff}
+    .panel,.actions,.noprint{display:none!important}
+    .modal-back{display:none!important}
+    .wrap{display:block;padding:0;max-width:none}
+    .sign{border:none;box-shadow:none;width:100%;padding:0;
+      transform:scale(var(--print-scale,1));transform-origin:top center;}
+    /* tighten media so everything fits one page */
+    .ortho,.ortho-placeholder{max-height:250px}
+    .qr-block img,.qr-placeholder{width:128px;height:128px}
+    @page{size:A4 portrait;margin:12mm}
+    .sign{page-break-inside:avoid;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ CONTROL PANEL ============ -->
+  <aside class="panel noprint">
+    <h1>Πινακίδα Παραχώρησης</h1>
+    <p class="sub">Ρίξε το PDF της σύμβασης για αυτόματη συμπλήρωση — ή γράψε χειροκίνητα. <span style="color:var(--sea);font-weight:600">v9 · PWA</span></p>
+    <button type="button" id="helpBtn" class="btn-help">📖 Οδηγίες χρήσης</button>
+
+    <div class="fld">
+      <label>🏛 Κτηματική Υπηρεσία</label>
+      <div class="ky-tabs">
+        <button type="button" class="ky-tab active" data-ky="aitolo">Αιτωλοακαρνανία</button>
+        <button type="button" class="ky-tab" data-ky="lefkada">Λευκάδα</button>
+      </div>
+      <div class="filehint" id="ky_hint">Επίλεξε την Κτηματική σου — καθορίζει τη μορφή των στοιχείων.</div>
+    </div>
+
+    <div class="fld">
+      <label>📄 Αυτόματη συμπλήρωση από PDF σύμβασης</label>
+      <label class="filebtn" style="border-color:var(--sea);color:var(--sea-deep)">⬆ Επιλογή PDF απόφασης
+        <input type="file" id="up_pdf" accept="application/pdf">
+      </label>
+      <div class="filehint" id="pdf_status">Διαβάζεται τοπικά — δεν ανεβαίνει πουθενά. QR &amp; αεροφωτογραφία μπαίνουν χωριστά.</div>
+      <button type="button" id="dbgBtn" class="addrow" style="margin-top:6px;display:none">🔍 Δείξε τι διάβασε (debug διάρκειας)</button>
+      <pre id="dbgBox" style="display:none;white-space:pre-wrap;font-size:10px;background:#f4f7f9;border:1px solid var(--line);border-radius:6px;padding:8px;margin-top:6px;max-height:160px;overflow:auto"></pre>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--line);margin:16px 0">
+
+    <div class="fld">
+      <label>1 · Αριθμός Σύμβασης</label>
+      <input type="text" id="f_symbasi" value="ΚΥ4-ΑΙΤΩ-11111ΟΜ/01-01-2026">
+    </div>
+    <div class="fld">
+      <label>2 · ΑΔΑ</label>
+      <input type="text" id="f_ada" value="Ψ5ΟΠΗ-Γ3Ε">
+    </div>
+    <div class="fld">
+      <label>3 · Μισθωτής</label>
+      <input type="text" id="f_misthotis" value="ΠΑΠΑΔΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ Τ. ΧΑΡΙΛΑΟΥ">
+    </div>
+    <div class="fld">
+      <label>4 · Εμβαδόν Παραχώρησης (τ.μ.)</label>
+      <input type="text" id="f_emvadon" value="50,00">
+    </div>
+    <div class="fld">
+      <label>5 · Διάρκεια</label>
+      <input type="text" id="f_diarkeia" value="11/06/2026 ΕΩΣ 31/12/2028">
+    </div>
+
+    <div class="fld">
+      <label>Κωδικός QR (αριθμός)</label>
+      <input type="text" id="f_qrcode" value="19632">
+    </div>
+    <div class="fld">
+      <label>Εικόνα QR-code</label>
+      <label class="filebtn">⬆ Επιλογή αρχείου QR
+        <input type="file" id="up_qr" accept="image/*">
+      </label>
+      <div class="filehint" id="qr_name">Καμία εικόνα — εμφανίζεται placeholder.</div>
+    </div>
+
+    <div class="fld">
+      <label>Αεροφωτογραφία / Ορθοφωτοχάρτης</label>
+      <label class="filebtn">⬆ Επιλογή αεροφωτογραφίας
+        <input type="file" id="up_ortho" accept="image/*">
+      </label>
+      <div class="filehint" id="ortho_name">Καμία εικόνα — εμφανίζεται placeholder.</div>
+    </div>
+
+    <div class="fld">
+      <label>Συντεταγμένες — επικόλληση από πίνακα σύμβασης (§2)</label>
+      <textarea id="f_coordpaste" rows="6" placeholder="Επικόλλησε εδώ τον πίνακα της παραγράφου 2 (ΣΥΝΤΕΤΑΓΜΕΝΕΣ) της σύμβασης.&#10;&#10;π.χ.&#10;1  268230,91  4488463,52&#10;2  268247,40  4488468,26&#10;3  268249,44  4488460,10&#10;4  268233,02  4488456,34"></textarea>
+      <div class="filehint" id="coord_status">Δεν έχει γίνει επικόλληση — εμφανίζονται οι ενδεικτικές κορυφές.</div>
+    </div>
+
+    <div class="fld">
+      <label>…ή εικόνα του πίνακα συντεταγμένων</label>
+      <label class="filebtn">⬆ Επιλογή εικόνας πίνακα
+        <input type="file" id="up_coordimg" accept="image/*">
+      </label>
+      <div class="filehint" id="coordimg_name">Αν ο πίνακας είναι scan/εικόνα, ανέβασέ τον εδώ — μπαίνει αυτούσιος.</div>
+      <button class="addrow" id="clearCoordImg" style="display:none;margin-top:6px">✕ Αφαίρεση εικόνας πίνακα</button>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-print" onclick="computePrintScale();window.print()">🖨 Εκτύπωση / PDF</button>
+      <button class="btn btn-png" id="dlPng">📷 Λήψη PNG</button>
+    </div>
+  </aside>
+
+  <!-- ============ THE SIGN ============ -->
+  <main class="stage">
+    <div class="sign" id="sign">
+      <h2 class="sign-title" id="t_title">
+        ΣΤΟΙΧΕΙΑ ΠΑΡΑΧΩΡΗΣΗΣ ΑΠΛΗΣ ΧΡΗΣΗΣ ΑΙΓΙΑΛΟΥ ΜΕ ΣΚΟΠΟ ΤΗΝ ΤΟΠΟΘΕΤΗΣΗ ΟΜΠΡΕΛΟΞΑΠΛΩΣΤΡΩΝ &amp; ΤΡΑΠΕΖΟΚΑΘΙΣΜΑΤΩΝ
+      </h2>
+
+      <div class="rows">
+        <div class="row"><span class="n">1.</span>ΑΡΙΘΜΟΣ ΣΥΜΒΑΣΗΣ: <span class="v" id="t_symbasi"></span></div>
+        <div class="row"><span class="n">2.</span>ΑΔΑ: <span class="v" id="t_ada"></span></div>
+        <div class="row"><span class="n">3.</span>ΜΙΣΘΩΤΗΣ: <span class="v" id="t_misthotis"></span></div>
+        <div class="row"><span class="n">4.</span>ΕΜΒΑΔΟΝ ΠΑΡΑΧΩΡΗΣΗΣ: <span class="v" id="t_emvadon"></span>Τ.Μ.</div>
+        <div class="row"><span class="n">5.</span>ΔΙΑΡΚΕΙΑ: <span class="v" id="t_diarkeia"></span></div>
+      </div>
+
+      <div class="qr-block">
+        <div id="qrSlot">
+          <div class="qr-placeholder">QR-code<br>(πληκτρολόγησε κωδικό)</div>
+        </div>
+        <div class="qr-code-label">Κωδικός: <span id="t_qrcode"></span></div>
+      </div>
+
+      <div class="section-head">ΑΠΟΣΠΑΣΜΑ ΟΡΘΟΦΩΤΟΧΑΡΤΗ / ΤΟΠΟΓΡΑΦΙΚΟΥ ΔΙΑΓΡΑΜΜΑΤΟΣ</div>
+      <div id="orthoSlot">
+        <div class="ortho-placeholder">Ανέβασε αεροφωτογραφία / ορθοφωτοχάρτη</div>
+      </div>
+
+      <div class="section-head">ΣΥΝΤΕΤΑΓΜΕΝΕΣ ΚΟΡΥΦΩΝ ΠΑΡΑΧΩΡΟΥΜΕΝΟΥ ΧΩΡΟΥ</div>
+      <div id="coordSlot">
+        <table class="coords">
+          <thead><tr><th class="aa">Α/Α</th><th>Χ</th><th>Υ</th></tr></thead>
+          <tbody id="coordTable"></tbody>
+        </table>
+      </div>
+
+      <div class="credit">by BRB DEVELOPMENT MON IKE 2026</div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ (modal) ============ -->
+<div class="modal-back" id="helpModal">
+  <div class="modal">
+    <button type="button" class="modal-close" id="helpClose" aria-label="Κλείσιμο">×</button>
+    <h2>Οδηγίες χρήσης</h2>
+    <p class="lead">Πώς φτιάχνεις την πληροφοριακή πινακίδα παραχώρησης αιγιαλού, βήμα-βήμα.</p>
+
+    <h3><span class="step">1</span> Διάλεξε Κτηματική Υπηρεσία</h3>
+    <p>Πάτησε <b>Αιτωλοακαρνανία</b> ή <b>Λευκάδα</b>. Καθορίζει τη μορφή του Αριθμού Σύμβασης και τον τρόπο που διαβάζονται οι συντεταγμένες (η Λευκάδα τις έχει ως εικόνα).</p>
+
+    <h3><span class="step">2</span> Κατέβασε τη σύμβαση (PDF)</h3>
+    <p>Είναι η υπογεγραμμένη <b>σύμβαση παραχώρησης</b> που εξέδωσε η Κτηματική Υπηρεσία. Την έχεις λάβει με email ή την κατεβάζεις από το <a href="https://www.gov.gr" target="_blank" rel="noopener">gov.gr</a> / τη ΔΙΑΥΓΕΙΑ.</p>
+    <div class="note">⚠ Σημαντικό: το αρχείο PDF πρέπει να έχει όνομα τον <b>ΑΔΑ</b> της σύμβασης (π.χ. <i>ΨΗΗΑΗ-ΣΙΖ.pdf</i>). Από εκεί διαβάζεται ο ΑΔΑ — μην το μετονομάσεις.</div>
+
+    <h3><span class="step">3</span> Ρίξε το PDF για αυτόματη συμπλήρωση</h3>
+    <p>Πάτησε <b>«⬆ Επιλογή PDF απόφασης»</b> και διάλεξέ το. Συμπληρώνονται μόνα τους: Αριθμός Σύμβασης, ΑΔΑ, Μισθωτής, Εμβαδόν, Διάρκεια και ο πίνακας συντεταγμένων. Το PDF διαβάζεται <b>τοπικά στον υπολογιστή σου</b> — δεν ανεβαίνει πουθενά.</p>
+    <div class="note">Έλεγξε πάντα την <b>ημ/νία έναρξης διάρκειας</b> (= ημ/νία υπογραφής) και διόρθωσέ την αν χρειάζεται.</div>
+
+    <h3><span class="step">4</span> Κατέβασε &amp; βάλε το QR-code</h3>
+    <p>Το QR αντιστοιχεί στο <b>πολύγωνο</b> της παραχώρησης. Το βρίσκεις ως εξής:</p>
+    <ul>
+      <li>Μπες στο <a href="https://www.minfin.gov.gr" target="_blank" rel="noopener">minfin.gov.gr</a> → <b>Δημόσια Περιουσία → Αιγιαλός → QR Code Παραχωρήσεων Απλής Χρήσης</b> (σύνδεση με Taxisnet).</li>
+      <li>Βρες στον χάρτη την παραχώρησή σου, πάτησε το pin, μετά τις «…» κάτω δεξιά → <b>QRCode</b>.</li>
+      <li>Πάτησε <b>Αποθήκευση σε αρχείο</b> και ανέβασέ το εδώ στο «Εικόνα QR-code». Γράψε και τον αριθμό κωδικού στο πεδίο δίπλα.</li>
+    </ul>
+
+    <h3><span class="step">5</span> Βάλε τον ορθοφωτοχάρτη</h3>
+    <p>Είναι το <b>απόσπασμα ορθοφωτοχάρτη / τοπογραφικό διάγραμμα</b> που συνόδευε τη σύμβαση (από την υπηρεσία θέασης Κτηματολογίου ή το διάγραμμα που υπέβαλες). Πάτησε <b>«⬆ Επιλογή αεροφωτογραφίας»</b> και ανέβασέ το.</p>
+
+    <h3><span class="step">6</span> Συντεταγμένες</h3>
+    <p>Συνήθως συμπληρώνονται αυτόματα από το PDF. Αν η σύμβαση τις έχει ως <b>εικόνα</b> (π.χ. Λευκάδα), ανέβασέ τες με το <b>«⬆ Επιλογή εικόνας πίνακα»</b>. Εναλλακτικά κάνε επικόλληση του πίνακα §2 στο αντίστοιχο πεδίο.</p>
+
+    <h3><span class="step">7</span> Εκτύπωση / PDF</h3>
+    <p>Πάτησε <b>«🖨 Εκτύπωση / PDF»</b>. Η πινακίδα κλιμακώνεται αυτόματα ώστε να χωρά πάντα σε <b>μία σελίδα Α4</b>. Στο παράθυρο εκτύπωσης διάλεξε εκτυπωτή, ή «Αποθήκευση ως PDF». Μπορείς επίσης να πάρεις <b>«📷 Λήψη PNG»</b>.</p>
+    <div class="note">📌 Αν η παραχώρηση έχει <b>πολλά πολύγωνα</b>, φτιάχνεις <b>ξεχωριστή πινακίδα για κάθε πολύγωνο</b>, με δικό του QR και ορθοφωτοχάρτη.</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+if(window.pdfjsLib){
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+/* ---------- Οδηγίες χρήσης modal ---------- */
+(function(){
+  const modal=document.getElementById('helpModal');
+  const open=()=>modal.classList.add('open');
+  const close=()=>modal.classList.remove('open');
+  document.getElementById('helpBtn').addEventListener('click',open);
+  document.getElementById('helpClose').addEventListener('click',close);
+  modal.addEventListener('click',e=>{ if(e.target===modal) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+})();
+
+/* ---------- Κτηματική selector ---------- */
+let selectedKy='aitolo';
+const kyHints={
+  aitolo:'Αιτωλοακαρνανία — Αρ. Σύμβασης μορφής ΚΥ4-ΑΙΤΩ-…, συντεταγμένες σε κείμενο.',
+  lefkada:'Λευκάδα — Αρ. Σύμβασης μορφής {αρ.πρωτ}/ημερομηνία· οι συντεταγμένες είναι εικόνα (ανέβασέ τες ως εικόνα πίνακα).'
+};
+document.querySelectorAll('.ky-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ky-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedKy=btn.dataset.ky;
+    document.getElementById('ky_hint').textContent=kyHints[selectedKy];
+  });
+});
+
+/* ---------- live text bindings ---------- */
+const bind = [
+  ['f_symbasi','t_symbasi'],
+  ['f_ada','t_ada'],
+  ['f_misthotis','t_misthotis'],
+  ['f_emvadon','t_emvadon'],
+  ['f_diarkeia','t_diarkeia'],
+  ['f_qrcode','t_qrcode'],
+];
+bind.forEach(([src,dst])=>{
+  const i=document.getElementById(src), o=document.getElementById(dst);
+  const sync=()=>o.textContent=i.value;
+  i.addEventListener('input',sync); sync();
+});
+
+/* ---------- QR image ---------- */
+document.getElementById('up_qr').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    document.getElementById('qrSlot').innerHTML='<img src="'+ev.target.result+'" alt="QR">';
+    const n=document.getElementById('qr_name'); n.textContent=f.name; n.classList.add('has-file');
+  };
+  r.readAsDataURL(f);
+});
+
+/* ---------- ortho image ---------- */
+document.getElementById('up_ortho').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    document.getElementById('orthoSlot').innerHTML='<img class="ortho" src="'+ev.target.result+'" alt="Ορθοφωτοχάρτης">';
+    const n=document.getElementById('ortho_name'); n.textContent=f.name; n.classList.add('has-file');
+  };
+  r.readAsDataURL(f);
+});
+
+/* ---------- coordinates: parsed from pasted contract table ---------- */
+const seed=[
+  ['268230,91','4488463,52'],
+  ['268247,40','4488468,26'],
+  ['268249,44','4488460,10'],
+  ['268233,02','4488456,34'],
+  ['268230,91','4488463,52'],
+];
+let coords=seed.map(c=>({x:c[0],y:c[1]}));
+
+/* ---------- FAITHFUL coordinate extraction (shared by paste-box & PDF) ----------
+   No guessing, no reshaping, no auto-close, no decimal conversion.
+   A vertex row = a line of the form:  <Α/Α>  <Χ>  <Υ>
+   where Α/Α is a 1–3 digit index and Χ,Υ are EGSA-scale numbers (≥1000),
+   copied VERBATIM exactly as written in the decision (comma or dot kept as-is).
+   Every matching row is kept in order — including a repeated closing vertex
+   if the decision itself contains one. */
+function coordSection(text){
+  const i=text.search(/2\s*[.\)]?\s*ΣΥΝΤΕΤΑΓΜΕΝΕΣ|ΣΥΝΤΕΤΑΓΜΕΝΕΣ\s+ΚΟΡΥΦΩΝ/i);
+  const j=text.search(/3\s*[.\)]?\s*ΔΙΑΡΚΕΙΑ/i);
+  if(i>=0) return text.slice(i, j>i? j : text.length);
+  return text;
+}
+
+function extractCoords(text){
+  const sec=coordSection(text);
+  const rows=[];
+  sec.split(/\r?\n/).forEach(line=>{
+    const L=line.trim();
+    if(!L) return;
+    // <index> <X> <Y> — index has no decimals; X/Y may have , or . decimals
+    const m=L.match(/^(\d{1,3})\s+(\d{3,7}(?:[.,]\d+)?)\s+(\d{3,7}(?:[.,]\d+)?)\s*$/);
+    if(!m) return;
+    const x=m[2], y=m[3];
+    if(parseFloat(x.replace(',','.'))>=1000 && parseFloat(y.replace(',','.'))>=1000){
+      rows.push({x:x, y:y});   // verbatim
+    }
+  });
+  return rows;
+}
+
+document.getElementById('f_coordpaste').addEventListener('input',e=>{
+  const status=document.getElementById('coord_status');
+  const txt=e.target.value.trim();
+  if(!txt){
+    coords=seed.map(c=>({x:c[0],y:c[1]}));
+    status.textContent='Δεν έχει γίνει επικόλληση — εμφανίζονται οι ενδεικτικές κορυφές.';
+    status.classList.remove('has-file');
+    renderCoordTable(); return;
+  }
+  const parsed=extractCoords(txt);
+  if(parsed.length>=3){
+    coords=parsed;
+    status.textContent='Διαβάστηκαν '+parsed.length+' κορυφές από τον πίνακα.';
+    status.classList.add('has-file');
+  }else{
+    status.textContent='Δεν εντοπίστηκαν έγκυρες συντεταγμένες ΕΓΣΑ — έλεγξε την επικόλληση.';
+    status.classList.remove('has-file');
+  }
+  renderCoordTable();
+});
+
+/* ---------- coordinate table as image (scan) ---------- */
+let coordImgActive=false;
+const coordSlot=document.getElementById('coordSlot');
+const coordTableHTML=coordSlot.innerHTML; // keep original table markup
+
+document.getElementById('up_coordimg').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    coordImgActive=true;
+    coordSlot.innerHTML='<img class="coordimg" src="'+ev.target.result+'" alt="Πίνακας συντεταγμένων">';
+    const n=document.getElementById('coordimg_name'); n.textContent=f.name; n.classList.add('has-file');
+    document.getElementById('clearCoordImg').style.display='inline-block';
+  };
+  r.readAsDataURL(f);
+});
+
+document.getElementById('clearCoordImg').addEventListener('click',()=>{
+  coordImgActive=false;
+  document.getElementById('up_coordimg').value='';
+  const n=document.getElementById('coordimg_name');
+  n.textContent='Αν ο πίνακας είναι scan/εικόνα, ανέβασέ τον εδώ — μπαίνει αυτούσιος.';
+  n.classList.remove('has-file');
+  document.getElementById('clearCoordImg').style.display='none';
+  coordSlot.innerHTML=coordTableHTML;
+  renderCoordTable();
+});
+
+function renderCoordTable(){
+  if(coordImgActive) return;            // image overrides the table
+  const t=document.getElementById('coordTable'); if(!t) return; t.innerHTML='';
+  // print rows exactly as supplied — the closing vertex, if any, is already
+  // part of the data copied verbatim from the decision.
+  coords.forEach((c,i)=>{
+    t.innerHTML+='<tr><td class="aa">'+(i+1)+'</td><td>'+c.x+'</td><td>'+c.y+'</td></tr>';
+  });
+}
+renderCoordTable();
+
+/* ---------- auto-fill from contract PDF ---------- */
+function parseContract(text, filename, region){
+  const out={};
+  const t=text.replace(/\u00a0/g,' ');
+  const stripAccents = s => s.normalize('NFD').replace(/[\u0300-\u0301\u0342\u0345\u0308]/g,'').normalize('NFC');
+  region = region || 'aitolo';
+
+  // ---- ΑΔΑ — ALWAYS from the filename, NEVER from the body ----
+  if(filename){
+    const base=filename.replace(/\.[^.]+$/,'');
+    const fm=base.match(/([Α-ΩA-Z0-9]{5}-[Α-ΩA-Z0-9]{3})/);
+    if(fm) out.ada=fm[1];
+  }
+
+  // header protocol number + header (document) date — shared by both regions
+  const prot=t.match(/Αρ(?:ιθ)?\.?\s*Πρωτ\.?\s*[:：]\s*(\d+)/);
+  let hdrDate=t.match(/Ημερ\.?\s*[:：]\s*(\d{2}\/\d{2}\/\d{4})/);
+  if(!hdrDate) hdrDate=t.match(/(\d{2}\/\d{2}\/\d{4})/);   // e.g. "ΛΕΥΚΑΔΑ 06/05/2026"
+  const protNum=prot?prot[1]:null;
+  const dDash=hdrDate?hdrDate[1].replace(/\//g,'-'):null;
+
+  // ---- Αριθμός Σύμβασης — region specific ----
+  let m=t.match(/ΑΡΙΘΜΟΣ\s+ΣΥΜΒΑΣΗΣ\s*[:：]\s*([^\n]+)/);
+  if(m){
+    out.symbasi=m[1].trim();
+  }else if(region==='aitolo'){
+    // ΚΥ4-ΑΙΤΩ-{αρ.πρωτ}/{ημ.πρωτ}
+    if(protNum){
+      out.symbasi='ΚΥ4-ΑΙΤΩ-'+protNum;
+      if(dDash) out.symbasi+='/'+dDash;
+    }
+  }else if(region==='lefkada'){
+    // {αρ.πρωτ}/{ημ}
+    if(protNum){
+      out.symbasi=protNum;
+      if(dDash) out.symbasi+='/'+dDash;
+    }
+  }
+
+  // ---- Μισθωτής ----
+  m=t.match(/ΜΙΣΘΩΤΗΣ\s*[:：]\s*([^\n]+)/);
+  if(m){
+    out.misthotis=m[1].trim();
+  }else{
+    const n=t.match(/Αφετέρου,?\s*(?:ο|η|οι)?\s*([Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ.]*(?:\s+[Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ.]*)*?\s+(?:του|της)\s+[Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ]+)/);
+    if(n){
+      let name=n[1].replace(/\s+/g,' ').trim();
+      const title=t.match(/διακριτικ[όή]\s+τίτλο\s*[«"]([^»"]+)[»"]/);
+      if(title) name+=' «'+title[1].trim()+'»';
+      out.misthotis=stripAccents(name.toUpperCase());
+    }
+  }
+
+  // ---- Εμβαδόν ----
+  m=t.match(/εμβαδ(?:ού|όν|ο[νύ])\s*[=:]?\s*([\d.,]+)\s*τ\.?\s*μ/i);
+  if(!m) m=t.match(/ΕΜΒΑΔΟΝ\s*=\s*([\d.,]+)\s*τ\.?\s*μ/i);
+  if(m) out.emvadon=m[1].replace('.',',');
+
+  // ---- Διάρκεια — έναρξη = ημ/νία εγγράφου (προς έλεγχο, = υπογραφή), λήξη αξιόπιστη ----
+  // Tolerant: "λήγει/λήγει την/έως/μέχρι" + date, with any whitespace incl. newlines.
+  // Fallback: the last 31/12/YYYY date in the doc (concession contracts end on 31/12).
+  let endDate=null;
+  let me=t.match(/(?:λήγει|έως|μέχρι)\s*(?:την|στην|στις)?\s*[:：]?\s*(\d{2}\s*[\/\-.]\s*\d{2}\s*[\/\-.]\s*\d{4})/);
+  if(me){
+    endDate=me[1].replace(/\s+/g,'').replace(/[-.]/g,'/');
+  }else{
+    // fallback: take the last "31/12/YYYY" appearing in the text
+    const all=t.match(/31\s*[\/\-.]\s*12\s*[\/\-.]\s*\d{4}/g);
+    if(all && all.length) endDate=all[all.length-1].replace(/\s+/g,'').replace(/[-.]/g,'/');
+  }
+  if(endDate){
+    out.diarkeiaEnd=endDate;
+    out.diarkeia=(hdrDate?hdrDate[1]:'__/__/____')+' ΕΩΣ '+endDate;
+    out.diarkeiaNeedsCheck=true;
+  }
+
+  // ---- Συντεταγμένες (πιστή αντιγραφή, μόνο από κείμενο) ----
+  out.coords=extractCoords(text);
+  return out;
+}
+
+function setField(id,val){
+  if(val==null||val==='') return false;
+  const el=document.getElementById(id);
+  el.value=val;
+  el.dispatchEvent(new Event('input'));
+  return true;
+}
+
+async function extractPdfText(file){
+  const buf=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+  let full='';
+  for(let p=1;p<=pdf.numPages;p++){
+    const page=await pdf.getPage(p);
+    const tc=await page.getTextContent();
+    // group items into lines by their y position
+    const lines={};
+    tc.items.forEach(it=>{
+      const y=Math.round(it.transform[5]);
+      (lines[y]=lines[y]||[]).push(it.str);
+    });
+    Object.keys(lines).sort((a,b)=>b-a).forEach(y=>{ full+=lines[y].join(' ')+'\n'; });
+    full+='\n';
+  }
+  return full;
+}
+
+document.getElementById('up_pdf').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const status=document.getElementById('pdf_status');
+  if(!window.pdfjsLib){ status.textContent='Σφάλμα: η βιβλιοθήκη PDF δεν φορτώθηκε (έλεγξε σύνδεση).'; return; }
+  status.textContent='Διαβάζεται το PDF…';
+  try{
+    const text=await extractPdfText(f);
+    window.__lastPdfText=text;  // for debug button
+    document.getElementById('dbgBtn').style.display='inline-block';
+    const d=parseContract(text, f.name, selectedKy);
+
+    // wipe previous PDF's values first, so nothing carries over
+    ['f_symbasi','f_ada','f_misthotis','f_emvadon','f_diarkeia'].forEach(id=>{
+      const el=document.getElementById(id); el.value=''; el.dispatchEvent(new Event('input'));
+    });
+    coords=[];
+    coordImgActive=false;
+    document.getElementById('clearCoordImg').style.display='none';
+    coordSlot.innerHTML=coordTableHTML;
+    document.getElementById('f_coordpaste').value='';
+    renderCoordTable();
+
+    const filled=[];
+    const warn=[];
+    if(setField('f_symbasi',d.symbasi)) filled.push('Αρ. Σύμβασης');
+    if(setField('f_ada',d.ada)) filled.push('ΑΔΑ');
+    else warn.push('ΑΔΑ (συμπλήρωσέ τον χειροκίνητα — δεν προκύπτει από το όνομα αρχείου)');
+    if(setField('f_misthotis',d.misthotis)) filled.push('Μισθωτής');
+    if(setField('f_emvadon',d.emvadon)) filled.push('Εμβαδόν');
+    else warn.push('ΕΜΒΑΔΟΝ — δεν διαβάστηκε, συμπλήρωσέ το χειροκίνητα');
+    if(setField('f_diarkeia',d.diarkeia)) filled.push('Διάρκεια');
+    if(d.diarkeiaNeedsCheck) warn.push('ημ/νία ΕΝΑΡΞΗΣ διάρκειας = ημ/νία ΥΠΟΓΡΑΦΗΣ — επιβεβαίωσέ την (μπήκε προσωρινά η ημ/νία πρωτοκόλλου)');
+    if(d.coords && d.coords.length>=3){
+      coords=d.coords;
+      renderCoordTable();
+      // mirror into paste box for transparency
+      document.getElementById('f_coordpaste').value=
+        d.coords.map((c,i)=>(i+1)+'  '+c.x+'  '+c.y).join('\n');
+      document.getElementById('coord_status').textContent='Διαβάστηκαν '+d.coords.length+' κορυφές από το PDF.';
+      document.getElementById('coord_status').classList.add('has-file');
+      filled.push(d.coords.length+' κορυφές');
+    }else{
+      warn.push('ΣΥΝΤΕΤΑΓΜΕΝΕΣ — δεν διαβάστηκαν (ο πίνακας είναι εικόνα). Ανέβασε την «εικόνα του πίνακα συντεταγμένων» πιο κάτω');
+    }
+    let msg = filled.length
+      ? '✓ Συμπληρώθηκαν: '+filled.join(', ')+'.'
+      : 'Δεν εντοπίστηκαν στοιχεία — συμπλήρωσε χειροκίνητα.';
+    if(warn.length) msg += ' ⚠ '+warn.join(' · ');
+    msg += ' Έλεγξε & διόρθωσε αν χρειάζεται.';
+    status.innerHTML = msg;
+    status.classList.add('has-file');
+  }catch(err){
+    console.error(err);
+    status.textContent='Σφάλμα ανάγνωσης PDF: '+err.message;
+  }
+});
+
+/* ---------- debug: show what pdf.js actually read around ΔΙΑΡΚΕΙΑ ---------- */
+document.getElementById('dbgBtn').addEventListener('click',()=>{
+  const box=document.getElementById('dbgBox');
+  const t=(window.__lastPdfText||'').replace(/\u00a0/g,' ');
+  if(!t){ box.style.display='block'; box.textContent='Δεν έχει διαβαστεί PDF ακόμη.'; return; }
+  const i=t.search(/ΔΙΑΡΚΕΙΑ/);
+  const snippet = i>=0 ? t.slice(i, i+260) : '(δεν βρέθηκε η λέξη ΔΙΑΡΚΕΙΑ στο κείμενο)';
+  // run the same detection used by the parser
+  let endDate=null, how='';
+  let me=t.match(/(?:λήγει|έως|μέχρι)\s*(?:την|στην|στις)?\s*[:：]?\s*(\d{2}\s*[\/\-.]\s*\d{2}\s*[\/\-.]\s*\d{4})/);
+  if(me){ endDate=me[1].replace(/\s+/g,'').replace(/[-.]/g,'/'); how='από «λήγει/έως/μέχρι»'; }
+  else{
+    const all=t.match(/31\s*[\/\-.]\s*12\s*[\/\-.]\s*\d{4}/g);
+    if(all&&all.length){ endDate=all[all.length-1].replace(/\s+/g,'').replace(/[-.]/g,'/'); how='fallback 31/12/ΧΧΧΧ'; }
+  }
+  const hdr=t.match(/Ημερ\.?\s*[:：]\s*(\d{2}\/\d{2}\/\d{4})/) || t.match(/(\d{2}\/\d{2}\/\d{4})/);
+  box.style.display='block';
+  box.textContent =
+    'Ημ/νία εγγράφου: '+(hdr?hdr[1]:'(καμία)')+'\n'+
+    'Λήξη που εντοπίστηκε: '+(endDate||'(ΚΑΜΙΑ)')+(endDate?'  ['+how+']':'')+'\n'+
+    '──── κείμενο γύρω από «ΔΙΑΡΚΕΙΑ» ────\n'+snippet;
+});
+
+/* ---------- fit the sign to one A4 page before printing ---------- */
+window.computePrintScale=function computePrintScale(){
+  const sign=document.getElementById('sign');
+  // A4 printable area at 96dpi with 12mm margins:
+  // height 297mm - 24mm = 273mm ≈ 1032px ; width 210mm - 24mm = 186mm ≈ 703px
+  const pageH=1032, pageW=703;
+  // reset any prior scale to measure natural size
+  sign.style.setProperty('--print-scale','1');
+  const rect=sign.getBoundingClientRect();
+  const sH=pageH/rect.height;
+  const sW=pageW/rect.width;
+  let scale=Math.min(1, sH, sW);   // never upscale
+  scale=Math.floor(scale*100)/100; // round down to be safe
+  sign.style.setProperty('--print-scale', scale);
+}
+window.addEventListener('beforeprint', window.computePrintScale);
+window.addEventListener('afterprint', ()=>{
+  document.getElementById('sign').style.setProperty('--print-scale','1');
+});
+
+/* ---------- export PNG ---------- */
+document.getElementById('dlPng').addEventListener('click',async()=>{
+  const node=document.getElementById('sign');
+  const canvas=await html2canvas(node,{scale:2,backgroundColor:'#ffffff'});
+  const a=document.createElement('a');
+  a.download='pinakida_paraxorisis.png';
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+});
+
+/* ---------- PWA: offline service worker (works when served over http/https) ---------- */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  const swCode = `
+    const CACHE='pinakida-v9';
+    self.addEventListener('install', e=>{ self.skipWaiting(); });
+    self.addEventListener('activate', e=>{ e.waitUntil(self.clients.claim()); });
+    self.addEventListener('fetch', e=>{
+      e.respondWith(
+        caches.open(CACHE).then(c=>
+          c.match(e.request).then(hit=>
+            hit || fetch(e.request).then(res=>{
+              try{ if(e.request.method==='GET' && res.status===200) c.put(e.request, res.clone()); }catch(_){}
+              return res;
+            }).catch(()=> c.match(e.request))
+          )
+        )
+      );
+    });`;
+  try{
+    const blob=new Blob([swCode],{type:'text/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+  }catch(_){}
+}
+</script>
+</body>
+</html>
