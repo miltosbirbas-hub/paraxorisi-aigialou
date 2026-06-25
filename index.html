@@ -141,6 +141,8 @@
   .row .v{font-weight:700}
   .qr-block{display:flex;flex-direction:column;align-items:center;margin:14px 0 18px}
   .qr-block img{width:150px;height:150px;object-fit:contain;display:block}
+  .poly-sub{text-align:center;font-weight:800;font-size:12.5px;color:var(--accent);
+    letter-spacing:.04em;margin:-8px 0 14px}
   .qr-placeholder{
     width:150px;height:150px;border:2px dashed #aaa;display:flex;align-items:center;
     justify-content:center;color:#999;font-size:11px;text-align:center;padding:8px;
@@ -182,18 +184,52 @@
     .actions{flex-direction:column}
   }
 
+  /* ---- polygon switcher (control panel) ---- */
+  .poly-bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+  .poly-tab{
+    border:1px solid var(--line);background:#f4f7f9;color:var(--sea-deep);
+    border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;
+    font-family:inherit;display:flex;align-items:center;gap:6px;
+  }
+  .poly-tab.active{background:var(--sea);color:#fff;border-color:var(--sea)}
+  .poly-tab .x{font-weight:800;opacity:.7}
+  .poly-tab .x:hover{opacity:1}
+  .poly-add{
+    border:1px dashed var(--sea);background:#fff;color:var(--sea-deep);
+    border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .poly-add:hover{background:#eef3f6}
+
+  /* the preview shows a stack of pages, one per polygon */
+  .stage{flex-direction:column;align-items:center;gap:22px}
+  .sign-sep{font-size:11px;color:#8794a0;letter-spacing:.05em;text-transform:uppercase}
+
   @media print{
-    body{background:#fff}
+    html,body{background:#fff;margin:0;padding:0}
     .panel,.actions,.noprint{display:none!important}
     .modal-back{display:none!important}
-    .wrap{display:block;padding:0;max-width:none}
-    .sign{border:none;box-shadow:none;width:100%;padding:0;
-      transform:scale(var(--print-scale,1));transform-origin:top center;}
-    /* tighten media so everything fits one page */
-    .ortho,.ortho-placeholder{max-height:250px}
-    .qr-block img,.qr-placeholder{width:128px;height:128px}
-    @page{size:A4 portrait;margin:12mm}
-    .sign{page-break-inside:avoid;break-inside:avoid}
+    .sign-sep{display:none!important}
+    .wrap{display:block;padding:0;margin:0;max-width:none}
+    .stage{display:block;gap:0;margin:0;padding:0}
+
+    /* Each polygon = exactly ONE A4 page.
+       Printable area with 10mm margins ≈ 190mm × 277mm.
+       The .sign is a fixed-height page; .sign-inner is scaled to fit inside it. */
+    .sign{
+      border:none;box-shadow:none;margin:0;padding:0;
+      width:190mm;height:277mm;overflow:hidden;
+      page-break-inside:avoid;break-inside:avoid;
+      page-break-after:always;break-after:page;
+      position:relative;background:#fff;
+    }
+    .sign:last-of-type{page-break-after:auto;break-after:auto}
+    .sign-inner{
+      position:absolute;top:0;left:50%;
+      width:190mm;                       /* natural width before scaling */
+      transform:translateX(-50%) scale(var(--print-scale,1));
+      transform-origin:top center;
+    }
+    @page{size:A4 portrait;margin:10mm}
   }
 </style>
 </head>
@@ -203,7 +239,7 @@
   <!-- ============ CONTROL PANEL ============ -->
   <aside class="panel noprint">
     <h1>Πινακίδα Παραχώρησης</h1>
-    <p class="sub">Ρίξε το PDF της σύμβασης για αυτόματη συμπλήρωση — ή γράψε χειροκίνητα. <span style="color:var(--sea);font-weight:600">v15 · PWA</span></p>
+    <p class="sub">Ρίξε το PDF της σύμβασης για αυτόματη συμπλήρωση — ή γράψε χειροκίνητα. <span style="color:var(--sea);font-weight:600">v20 · PWA</span></p>
     <button type="button" id="helpBtn" class="btn-help">📖 Οδηγίες χρήσης</button>
 
     <div class="fld">
@@ -240,17 +276,36 @@
       <input type="text" id="f_misthotis" value="ΠΑΠΑΔΟΠΟΥΛΟΣ ΠΑΝΑΓΙΩΤΗΣ Τ. ΧΑΡΙΛΑΟΥ">
     </div>
     <div class="fld">
-      <label>4 · Εμβαδόν Παραχώρησης (τ.μ.)</label>
-      <input type="text" id="f_emvadon" value="50,00">
-    </div>
-    <div class="fld">
       <label>5 · Διάρκεια</label>
       <input type="text" id="f_diarkeia" value="11/06/2026 ΕΩΣ 31/12/2028">
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--line);margin:16px 0">
+
+    <div class="fld">
+      <label>🔷 Πολύγωνα παραχώρησης</label>
+      <div class="poly-bar" id="polyBar"></div>
+      <button type="button" class="poly-add" id="polyAdd">➕ Προσθήκη πολυγώνου</button>
+      <div class="filehint">Κάθε πολύγωνο τυπώνεται σε <b>δική του σελίδα</b>, με δικό του QR, ορθοφωτοχάρτη &amp; συντεταγμένες. Τα στοιχεία 1–3 &amp; 5 είναι κοινά.</div>
+    </div>
+
+    <div class="fld">
+      <label>Τίτλος πολυγώνου (π.χ. ΟΜΠΡΕΛΟΞΑΠΛΩΣΤΡΕΣ)</label>
+      <input type="text" id="f_label" value="">
+      <div class="filehint">Αφήστε κενό αν η παραχώρηση έχει ένα μόνο τμήμα.</div>
+    </div>
+
+    <div class="fld">
+      <label>4 · Εμβαδόν Παραχώρησης (τ.μ.)</label>
+      <input type="text" id="f_emvadon" value="50,00">
     </div>
 
     <div class="fld">
       <label>Κωδικός QR (αριθμός)</label>
       <input type="text" id="f_qrcode" value="19632">
+      <div class="filehint">🔗 Βρες/κατέβασε το QR:
+        <a href="https://maps.gsis.gr/portalmaps/apps/webappviewer/index.html?id=ce9997461c274fc8b362df3477fc17de" target="_blank" rel="noopener">άνοιγμα χάρτη παραχωρήσεων</a>
+      </div>
     </div>
     <div class="fld">
       <label>Εικόνα QR-code</label>
@@ -289,44 +344,8 @@
     </div>
   </aside>
 
-  <!-- ============ THE SIGN ============ -->
-  <main class="stage">
-    <div class="sign" id="sign">
-      <h2 class="sign-title" id="t_title">
-        ΣΤΟΙΧΕΙΑ ΠΑΡΑΧΩΡΗΣΗΣ ΑΠΛΗΣ ΧΡΗΣΗΣ ΑΙΓΙΑΛΟΥ ΜΕ ΣΚΟΠΟ ΤΗΝ ΤΟΠΟΘΕΤΗΣΗ ΟΜΠΡΕΛΟΞΑΠΛΩΣΤΡΩΝ &amp; ΤΡΑΠΕΖΟΚΑΘΙΣΜΑΤΩΝ
-      </h2>
-
-      <div class="rows">
-        <div class="row"><span class="n">1.</span>ΑΡΙΘΜΟΣ ΣΥΜΒΑΣΗΣ: <span class="v" id="t_symbasi"></span></div>
-        <div class="row"><span class="n">2.</span>ΑΔΑ: <span class="v" id="t_ada"></span></div>
-        <div class="row"><span class="n">3.</span>ΜΙΣΘΩΤΗΣ: <span class="v" id="t_misthotis"></span></div>
-        <div class="row"><span class="n">4.</span>ΕΜΒΑΔΟΝ ΠΑΡΑΧΩΡΗΣΗΣ: <span class="v" id="t_emvadon"></span>Τ.Μ.</div>
-        <div class="row"><span class="n">5.</span>ΔΙΑΡΚΕΙΑ: <span class="v" id="t_diarkeia"></span></div>
-      </div>
-
-      <div class="qr-block">
-        <div id="qrSlot">
-          <div class="qr-placeholder">QR-code<br>(πληκτρολόγησε κωδικό)</div>
-        </div>
-        <div class="qr-code-label">Κωδικός: <span id="t_qrcode"></span></div>
-      </div>
-
-      <div class="section-head">ΑΠΟΣΠΑΣΜΑ ΟΡΘΟΦΩΤΟΧΑΡΤΗ / ΤΟΠΟΓΡΑΦΙΚΟΥ ΔΙΑΓΡΑΜΜΑΤΟΣ</div>
-      <div id="orthoSlot">
-        <div class="ortho-placeholder">Ανέβασε αεροφωτογραφία / ορθοφωτοχάρτη</div>
-      </div>
-
-      <div class="section-head">ΣΥΝΤΕΤΑΓΜΕΝΕΣ ΚΟΡΥΦΩΝ ΠΑΡΑΧΩΡΟΥΜΕΝΟΥ ΧΩΡΟΥ</div>
-      <div id="coordSlot">
-        <table class="coords">
-          <thead><tr><th class="aa">Α/Α</th><th>Χ</th><th>Υ</th></tr></thead>
-          <tbody id="coordTable"></tbody>
-        </table>
-      </div>
-
-      <div class="credit">by BRB DEVELOPMENT MON IKE 2026</div>
-    </div>
-  </main>
+  <!-- ============ THE SIGN(S) — one A4 page per polygon ============ -->
+  <main class="stage" id="stage"></main>
 </div>
 
 <!-- ============ ΟΔΗΓΙΕΣ ΧΡΗΣΗΣ (modal) ============ -->
@@ -363,7 +382,7 @@
 
     <h3><span class="step">7</span> Εκτύπωση / PDF</h3>
     <p>Πάτησε <b>«🖨 Εκτύπωση / PDF»</b>. Η πινακίδα κλιμακώνεται αυτόματα ώστε να χωρά πάντα σε <b>μία σελίδα Α4</b>. Στο παράθυρο εκτύπωσης διάλεξε εκτυπωτή, ή «Αποθήκευση ως PDF». Μπορείς επίσης να πάρεις <b>«📷 Λήψη PNG»</b>.</p>
-    <div class="note">📌 Αν η παραχώρηση έχει <b>πολλά πολύγωνα</b>, φτιάχνεις <b>ξεχωριστή πινακίδα για κάθε πολύγωνο</b>, με δικό του QR και ορθοφωτοχάρτη.</div>
+    <div class="note">📌 Αν η παραχώρηση έχει <b>πολλά πολύγωνα/τμήματα</b> (π.χ. τραπεζοκαθίσματα + ομπρελοξαπλώστρες), η εφαρμογή φτιάχνει <b>αυτόματα ξεχωριστή σελίδα για κάθε πολύγωνο</b> κατά την ανάγνωση του PDF. Διάλεξε κάθε πολύγωνο από τη μπάρα «🔷 Πολύγωνα» και βάλε του <b>δικό του QR &amp; ορθοφωτοχάρτη</b>. Μπορείς επίσης να προσθέσεις πολύγωνο χειροκίνητα με το <b>«➕ Προσθήκη πολυγώνου»</b>.</div>
   </div>
 </div>
 
@@ -399,148 +418,242 @@ document.querySelectorAll('.ky-tab').forEach(btn=>{
   });
 });
 
-/* ---------- live text bindings ---------- */
-const bind = [
-  ['f_symbasi','t_symbasi'],
-  ['f_ada','t_ada'],
-  ['f_misthotis','t_misthotis'],
-  ['f_emvadon','t_emvadon'],
-  ['f_diarkeia','t_diarkeia'],
-  ['f_qrcode','t_qrcode'],
-];
-bind.forEach(([src,dst])=>{
-  const i=document.getElementById(src), o=document.getElementById(dst);
-  const sync=()=>o.textContent=i.value;
-  i.addEventListener('input',sync); sync();
-});
-
-/* ---------- QR image ---------- */
-document.getElementById('up_qr').addEventListener('change',e=>{
-  const f=e.target.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    document.getElementById('qrSlot').innerHTML='<img src="'+ev.target.result+'" alt="QR">';
-    const n=document.getElementById('qr_name'); n.textContent=f.name; n.classList.add('has-file');
-  };
-  r.readAsDataURL(f);
-});
-
-/* ---------- ortho image ---------- */
-document.getElementById('up_ortho').addEventListener('change',e=>{
-  const f=e.target.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    document.getElementById('orthoSlot').innerHTML='<img class="ortho" src="'+ev.target.result+'" alt="Ορθοφωτοχάρτης">';
-    const n=document.getElementById('ortho_name'); n.textContent=f.name; n.classList.add('has-file');
-  };
-  r.readAsDataURL(f);
-});
-
-/* ---------- coordinates: parsed from pasted contract table ---------- */
+/* ===================================================================
+   POLYGON MODEL  — μία παραχώρηση μπορεί να έχει πολλά τμήματα/πολύγωνα.
+   Κοινά για όλα: Αρ. Σύμβασης (1), ΑΔΑ (2), Μισθωτής (3), Διάρκεια (5).
+   Ανά πολύγωνο: τίτλος, Εμβαδόν (4), QR (εικόνα+κωδικός), ορθοφωτοχάρτης,
+   συντεταγμένες (πίνακας ή εικόνα). Κάθε πολύγωνο = ξεχωριστή σελίδα Α4.
+   =================================================================== */
 const seed=[
-  ['268230,91','4488463,52'],
-  ['268247,40','4488468,26'],
-  ['268249,44','4488460,10'],
-  ['268233,02','4488456,34'],
-  ['268230,91','4488463,52'],
+  {x:'268230,91',y:'4488463,52'},
+  {x:'268247,40',y:'4488468,26'},
+  {x:'268249,44',y:'4488460,10'},
+  {x:'268233,02',y:'4488456,34'},
 ];
-let coords=seed.map(c=>({x:c[0],y:c[1]}));
-
-/* ---------- FAITHFUL coordinate extraction (shared by paste-box & PDF) ----------
-   No guessing, no reshaping, no auto-close, no decimal conversion.
-   A vertex row = a line of the form:  <Α/Α>  <Χ>  <Υ>
-   where Α/Α is a 1–3 digit index and Χ,Υ are EGSA-scale numbers (≥1000),
-   copied VERBATIM exactly as written in the decision (comma or dot kept as-is).
-   Every matching row is kept in order — including a repeated closing vertex
-   if the decision itself contains one. */
-function coordSection(text){
-  const i=text.search(/2\s*[.\)]?\s*ΣΥΝΤΕΤΑΓΜΕΝΕΣ|ΣΥΝΤΕΤΑΓΜΕΝΕΣ\s+ΚΟΡΥΦΩΝ/i);
-  const j=text.search(/3\s*[.\)]?\s*ΔΙΑΡΚΕΙΑ/i);
-  if(i>=0) return text.slice(i, j>i? j : text.length);
-  return text;
+function newPolygon(p){
+  return Object.assign({
+    label:'',            // π.χ. ΟΜΠΡΕΛΟΞΑΠΛΩΣΤΡΕΣ (κενό = ένα τμήμα)
+    emvadon:'50,00',
+    qrcode:'',
+    qrImg:null,          // dataURL
+    qrName:'',
+    orthoImg:null,
+    orthoName:'',
+    coords:seed.map(c=>({x:c.x,y:c.y})),
+    coordImg:null,       // dataURL (εικόνα πίνακα / snapshot από PDF)
+    coordImgName:'',
+    coordStatus:'Δεν έχει γίνει επικόλληση — εμφανίζονται οι ενδεικτικές κορυφές.'
+  }, p||{});
 }
+let polys=[newPolygon({emvadon:'50,00'})];
+let active=0;
 
+/* ---------- shared (common) live values ---------- */
+const shared={
+  symbasi:document.getElementById('f_symbasi'),
+  ada:document.getElementById('f_ada'),
+  misthotis:document.getElementById('f_misthotis'),
+  diarkeia:document.getElementById('f_diarkeia'),
+};
+Object.values(shared).forEach(el=>el.addEventListener('input',renderSigns));
+
+/* ---------- FAITHFUL coordinate extraction (paste-box & PDF) ----------
+   No guessing, no reshaping, no auto-close, no decimal conversion. */
 function extractCoords(text){
-  let sec=coordSection(text);
-  // Remove ALL whitespace so numbers split by pdf.js (across spaces OR line
-  // breaks, e.g. "233844.1\n7") rejoin into one digit stream.
-  const compact=sec.replace(/\s+/g,'');
-  // EGSA-87 here: X (Easting)=6 int digits + .DD ; Y (Northing)=7 int digits + .DD.
-  // When whitespace is stripped, the Α/Α index glues in front of each X
-  // (e.g. "1233844.17"). We grab each "<digits>.DD" token then TRIM the integer
-  // part from the RIGHT to its correct length, so any index prefix falls away.
+  const compact=text.replace(/\s+/g,'');
   const re=/(\d+)[.,](\d{2})/g;
-  const found=[];
-  let m;
+  const found=[]; let m;
   while((m=re.exec(compact))!==null) found.push({intpart:m[1], dec:m[2]});
   const rows=[];
   for(let i=0;i+1<found.length;i+=2){
-    const x=found[i].intpart.slice(-6)+'.'+found[i].dec;    // last 6 → easting
-    const y=found[i+1].intpart.slice(-7)+'.'+found[i+1].dec; // last 7 → northing
+    const x=found[i].intpart.slice(-6)+'.'+found[i].dec;
+    const y=found[i+1].intpart.slice(-7)+'.'+found[i+1].dec;
     rows.push({x,y});
   }
   return rows;
 }
 
-document.getElementById('f_coordpaste').addEventListener('input',e=>{
+/* =================== PANEL ⇄ ACTIVE POLYGON =================== */
+const F={
+  label:document.getElementById('f_label'),
+  emvadon:document.getElementById('f_emvadon'),
+  qrcode:document.getElementById('f_qrcode'),
+  coordpaste:document.getElementById('f_coordpaste'),
+};
+// write panel fields → active polygon
+F.label.addEventListener('input',()=>{ polys[active].label=F.label.value; renderPolyBar(); renderSigns(); });
+F.emvadon.addEventListener('input',()=>{ polys[active].emvadon=F.emvadon.value; renderSigns(); });
+F.qrcode.addEventListener('input',()=>{ polys[active].qrcode=F.qrcode.value; renderSigns(); });
+
+document.getElementById('up_qr').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{ polys[active].qrImg=ev.target.result; polys[active].qrName=f.name;
+    document.getElementById('qr_name').textContent=f.name;
+    document.getElementById('qr_name').classList.add('has-file'); renderSigns(); };
+  r.readAsDataURL(f);
+});
+document.getElementById('up_ortho').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{ polys[active].orthoImg=ev.target.result; polys[active].orthoName=f.name;
+    document.getElementById('ortho_name').textContent=f.name;
+    document.getElementById('ortho_name').classList.add('has-file'); renderSigns(); };
+  r.readAsDataURL(f);
+});
+F.coordpaste.addEventListener('input',e=>{
   const status=document.getElementById('coord_status');
   const txt=e.target.value.trim();
+  const P=polys[active];
   if(!txt){
-    coords=seed.map(c=>({x:c[0],y:c[1]}));
-    status.textContent='Δεν έχει γίνει επικόλληση — εμφανίζονται οι ενδεικτικές κορυφές.';
-    status.classList.remove('has-file');
-    renderCoordTable(); return;
+    P.coords=seed.map(c=>({x:c.x,y:c.y}));
+    P.coordStatus='Δεν έχει γίνει επικόλληση — εμφανίζονται οι ενδεικτικές κορυφές.';
+    status.textContent=P.coordStatus; status.classList.remove('has-file');
+    renderSigns(); return;
   }
   const parsed=extractCoords(txt);
   if(parsed.length>=3){
-    coords=parsed;
-    status.textContent='Διαβάστηκαν '+parsed.length+' κορυφές από τον πίνακα.';
-    status.classList.add('has-file');
+    P.coords=parsed; P.coordImg=null;            // κείμενο υπερισχύει
+    P.coordStatus='Διαβάστηκαν '+parsed.length+' κορυφές από τον πίνακα.';
+    status.textContent=P.coordStatus; status.classList.add('has-file');
   }else{
-    status.textContent='Δεν εντοπίστηκαν έγκυρες συντεταγμένες ΕΓΣΑ — έλεγξε την επικόλληση.';
-    status.classList.remove('has-file');
+    P.coordStatus='Δεν εντοπίστηκαν έγκυρες συντεταγμένες ΕΓΣΑ — έλεγξε την επικόλληση.';
+    status.textContent=P.coordStatus; status.classList.remove('has-file');
   }
-  renderCoordTable();
+  renderSigns();
 });
-
-/* ---------- coordinate table as image (scan) ---------- */
-let coordImgActive=false;
-const coordSlot=document.getElementById('coordSlot');
-const coordTableHTML=coordSlot.innerHTML; // keep original table markup
-
 document.getElementById('up_coordimg').addEventListener('change',e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=ev=>{
-    coordImgActive=true;
-    coordSlot.innerHTML='<img class="coordimg" src="'+ev.target.result+'" alt="Πίνακας συντεταγμένων">';
-    const n=document.getElementById('coordimg_name'); n.textContent=f.name; n.classList.add('has-file');
+  r.onload=ev=>{ const P=polys[active];
+    P.coordImg=ev.target.result; P.coordImgName=f.name;
+    document.getElementById('coordimg_name').textContent=f.name;
+    document.getElementById('coordimg_name').classList.add('has-file');
     document.getElementById('clearCoordImg').style.display='inline-block';
-  };
+    renderSigns(); };
   r.readAsDataURL(f);
 });
-
 document.getElementById('clearCoordImg').addEventListener('click',()=>{
-  coordImgActive=false;
+  const P=polys[active];
+  P.coordImg=null; P.coordImgName='';
   document.getElementById('up_coordimg').value='';
   const n=document.getElementById('coordimg_name');
   n.textContent='Αν ο πίνακας είναι scan/εικόνα, ανέβασέ τον εδώ — μπαίνει αυτούσιος.';
   n.classList.remove('has-file');
   document.getElementById('clearCoordImg').style.display='none';
-  coordSlot.innerHTML=coordTableHTML;
-  renderCoordTable();
+  renderSigns();
 });
 
-function renderCoordTable(){
-  if(coordImgActive) return;            // image overrides the table
-  const t=document.getElementById('coordTable'); if(!t) return; t.innerHTML='';
-  // print rows exactly as supplied — the closing vertex, if any, is already
-  // part of the data copied verbatim from the decision.
-  coords.forEach((c,i)=>{
-    t.innerHTML+='<tr><td class="aa">'+(i+1)+'</td><td>'+c.x+'</td><td>'+c.y+'</td></tr>';
+/* load active polygon → panel fields */
+function loadActiveIntoPanel(){
+  const P=polys[active];
+  F.label.value=P.label;
+  F.emvadon.value=P.emvadon;
+  F.qrcode.value=P.qrcode;
+  F.coordpaste.value='';
+  const qn=document.getElementById('qr_name');
+  qn.textContent=P.qrImg?(P.qrName||'Επιλεγμένη εικόνα'):'Καμία εικόνα — εμφανίζεται placeholder.';
+  qn.classList.toggle('has-file',!!P.qrImg);
+  const on=document.getElementById('ortho_name');
+  on.textContent=P.orthoImg?(P.orthoName||'Επιλεγμένη εικόνα'):'Καμία εικόνα — εμφανίζεται placeholder.';
+  on.classList.toggle('has-file',!!P.orthoImg);
+  const cs=document.getElementById('coord_status');
+  cs.textContent=P.coordStatus; cs.classList.toggle('has-file',/Διαβάστηκαν|αντιγράφηκε/.test(P.coordStatus));
+  const cn=document.getElementById('coordimg_name');
+  cn.textContent=P.coordImg?(P.coordImgName||'Εικόνα πίνακα'):'Αν ο πίνακας είναι scan/εικόνα, ανέβασέ τον εδώ — μπαίνει αυτούσιος.';
+  cn.classList.toggle('has-file',!!P.coordImg);
+  document.getElementById('clearCoordImg').style.display=P.coordImg?'inline-block':'none';
+  document.getElementById('up_qr').value='';
+  document.getElementById('up_ortho').value='';
+  document.getElementById('up_coordimg').value='';
+}
+
+/* =================== POLYGON SWITCHER =================== */
+const polyBar=document.getElementById('polyBar');
+function polyName(P,i){ return (P.label&&P.label.trim()) ? P.label.trim() : ('Πολύγωνο '+(i+1)); }
+function renderPolyBar(){
+  polyBar.innerHTML='';
+  polys.forEach((P,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='poly-tab'+(i===active?' active':'');
+    b.innerHTML='<span>'+polyName(P,i)+'</span>'+(polys.length>1?' <span class="x" title="Διαγραφή">✕</span>':'');
+    b.querySelector('span:first-child').addEventListener('click',()=>{ active=i; loadActiveIntoPanel(); renderPolyBar(); });
+    const x=b.querySelector('.x');
+    if(x) x.addEventListener('click',ev=>{ ev.stopPropagation(); removePolygon(i); });
+    polyBar.appendChild(b);
   });
 }
-renderCoordTable();
+document.getElementById('polyAdd').addEventListener('click',()=>{
+  polys.push(newPolygon({label:'ΠΟΛΥΓΩΝΟ '+(polys.length+1)}));
+  active=polys.length-1; loadActiveIntoPanel(); renderPolyBar(); renderSigns();
+});
+function removePolygon(i){
+  if(polys.length<=1) return;
+  if(!confirm('Διαγραφή «'+polyName(polys[i],i)+'»;')) return;
+  polys.splice(i,1);
+  if(active>=polys.length) active=polys.length-1;
+  loadActiveIntoPanel(); renderPolyBar(); renderSigns();
+}
+
+/* =================== RENDER THE SIGN PAGES =================== */
+const stageEl=document.getElementById('stage');
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function coordTableHTML(P){
+  if(P.coordImg) return '<img class="coordimg" src="'+P.coordImg+'" alt="Πίνακας συντεταγμένων">';
+  let rows='';
+  P.coords.forEach((c,i)=>{ rows+='<tr><td class="aa">'+(i+1)+'</td><td>'+esc(c.x)+'</td><td>'+esc(c.y)+'</td></tr>'; });
+  return '<table class="coords"><thead><tr><th class="aa">Α/Α</th><th>Χ</th><th>Υ</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function qrHTML(P){
+  return (P.qrImg
+      ? '<div class="qr-img"><img src="'+P.qrImg+'" alt="QR"></div>'
+      : '<div class="qr-placeholder">QR-code<br>(πληκτρολόγησε κωδικό)</div>')
+    + '<div class="qr-code-label">Κωδικός: '+esc(P.qrcode)+'</div>';
+}
+function orthoHTML(P){
+  return P.orthoImg
+    ? '<img class="ortho" src="'+P.orthoImg+'" alt="Ορθοφωτοχάρτης">'
+    : '<div class="ortho-placeholder">Ανέβασε αεροφωτογραφία / ορθοφωτοχάρτη</div>';
+}
+function signHTML(P,i){
+  const multi=polys.length>1;
+  const title='ΣΤΟΙΧΕΙΑ ΠΑΡΑΧΩΡΗΣΗΣ ΑΠΛΗΣ ΧΡΗΣΗΣ ΑΙΓΙΑΛΟΥ ΜΕ ΣΚΟΠΟ ΤΗΝ ΤΟΠΟΘΕΤΗΣΗ ΟΜΠΡΕΛΟΞΑΠΛΩΣΤΡΩΝ &amp; ΤΡΑΠΕΖΟΚΑΘΙΣΜΑΤΩΝ';
+  const sub = multi
+    ? '<div class="poly-sub">ΤΜΗΜΑ '+(i+1)+' ΑΠΟ '+polys.length+(P.label&&P.label.trim()?' — '+esc(P.label.trim().toUpperCase()):'')+'</div>'
+    : '';
+  return ''
+    +'<div class="sign"><div class="sign-inner">'
+    +'<h2 class="sign-title">'+title+'</h2>'
+    + sub
+    +'<div class="rows">'
+    +'<div class="row"><span class="n">1.</span>ΑΡΙΘΜΟΣ ΣΥΜΒΑΣΗΣ: <span class="v">'+esc(shared.symbasi.value)+'</span></div>'
+    +'<div class="row"><span class="n">2.</span>ΑΔΑ: <span class="v">'+esc(shared.ada.value)+'</span></div>'
+    +'<div class="row"><span class="n">3.</span>ΜΙΣΘΩΤΗΣ: <span class="v">'+esc(shared.misthotis.value)+'</span></div>'
+    +'<div class="row"><span class="n">4.</span>ΕΜΒΑΔΟΝ ΠΑΡΑΧΩΡΗΣΗΣ: <span class="v">'+esc(P.emvadon)+'</span>Τ.Μ.'
+        +(multi&&P.label&&P.label.trim()?' <span class="v">('+esc(P.label.trim().toUpperCase())+')</span>':'')+'</div>'
+    +'<div class="row"><span class="n">5.</span>ΔΙΑΡΚΕΙΑ: <span class="v">'+esc(shared.diarkeia.value)+'</span></div>'
+    +'</div>'
+    +'<div class="qr-block">'+qrHTML(P)+'</div>'
+    +'<div class="section-head">ΑΠΟΣΠΑΣΜΑ ΟΡΘΟΦΩΤΟΧΑΡΤΗ / ΤΟΠΟΓΡΑΦΙΚΟΥ ΔΙΑΓΡΑΜΜΑΤΟΣ</div>'
+    + orthoHTML(P)
+    +'<div class="section-head">ΣΥΝΤΕΤΑΓΜΕΝΕΣ ΚΟΡΥΦΩΝ ΠΑΡΑΧΩΡΟΥΜΕΝΟΥ ΧΩΡΟΥ</div>'
+    + coordTableHTML(P)
+    +'<div class="credit">by BRB DEVELOPMENT MON IKE 2026</div>'
+    +'</div></div>';
+}
+function renderSigns(){
+  let html='';
+  polys.forEach((P,i)=>{
+    if(i>0) html+='<div class="sign-sep noprint">— σελίδα '+(i+1)+' —</div>';
+    html+=signHTML(P,i);
+  });
+  stageEl.innerHTML=html;
+}
+
+renderPolyBar();
+loadActiveIntoPanel();
+renderSigns();
 
 /* ---------- auto-fill from contract PDF ---------- */
 function parseContract(text, filename, region){
@@ -596,23 +709,49 @@ function parseContract(text, filename, region){
   }
 
   // ---- Μισθωτής ----
+  // Handles: Greek & Latin names, "NAME του/της PATR", legal entities
+  // ("ως νόμιμος εκπρόσωπος της εταιρείας με την επωνυμία «X»"), and a
+  // διακριτικό τίτλο if present. Output is uppercased, accents stripped.
   m=t.match(/ΜΙΣΘΩΤΗΣ\s*[:：]\s*([^\n]+)/);
   if(m){
     out.misthotis=m[1].trim();
   }else{
-    const n=t.match(/Αφετέρου,?\s*(?:ο|η|οι)?\s*([Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ.]*(?:\s+[Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ.]*)*?\s+(?:του|της)\s+[Α-ΩΆ-Ώ][Α-Ωα-ωΆ-Ώά-ώ]+)/);
-    if(n){
-      let name=n[1].replace(/\s+/g,' ').trim();
-      const title=t.match(/διακριτικ[όή]\s+τίτλο\s*[«"]([^»"]+)[»"]/);
-      if(title) name+=' «'+title[1].trim()+'»';
-      out.misthotis=stripAccents(name.toUpperCase());
+    // name right after "Αφετέρου, ο/η ..." up to the first comma or "ως/με"
+    const n=t.match(/Αφετέρου\s*,?\s*(?:ο|η|οι|οι\s+)?\s*([A-Za-zΑ-Ωα-ωΆ-Ώά-ώ][A-Za-zΑ-Ωα-ωΆ-Ώά-ώ.'’\s]*?)\s+(?:του|της)\s+([A-Za-zΑ-ΩΆ-Ώ][A-Za-zΑ-Ωα-ωΆ-Ώά-ώ.'’]*)/);
+    let parts=[];
+    if(n) parts.push((n[1]+' του '+n[2]).replace(/\s+/g,' ').trim());
+    // legal entity name (επωνυμία) — keep verbatim incl. Latin chars & symbols
+    const epon=t.match(/επωνυμία\s*[«"]([^»"]+)[»"]/);
+    if(epon) parts.push('«'+epon[1].trim()+'»');
+    // διακριτικό τίτλο
+    const title=t.match(/διακριτικ[όή]\s+τίτλο\s*[«"]([^»"]+)[»"]/);
+    if(title) parts.push('«'+title[1].trim()+'»');
+    if(parts.length){
+      // uppercase + strip accents, but keep Latin letters as-is
+      out.misthotis=stripAccents(parts.join(' ').toUpperCase());
     }
   }
 
-  // ---- Εμβαδόν ----
-  m=t.match(/εμβαδ(?:ού|όν|ο[νύ])\s*[=:]?\s*([\d.,]+)\s*τ\.?\s*μ/i);
-  if(!m) m=t.match(/ΕΜΒΑΔΟΝ\s*=\s*([\d.,]+)\s*τ\.?\s*μ/i);
-  if(m) out.emvadon=m[1].replace('.',',');
+  // ---- Εμβαδόν / Πολύγωνα ----
+  // A contract may grant several distinct sub-areas, each introduced like:
+  //   "Α) Τραπεζοκαθίσματα ( Εμβαδόν = 45,00 τ.μ.)"
+  //   "Β) Ομπρελοξαπλώστρες (Εμβαδόν = 327,48 τ.μ.)"
+  // Capture each as a labelled polygon. Fall back to a single area if none found.
+  out.polys=[];
+  const segRe=/([Α-ΩA-Z][Α-Ωα-ωΆ-Ώά-ώA-Za-z]{3,})\s*\(\s*Εμβαδ(?:όν|ού|ο)\s*[=:]\s*([\d.,]+)\s*τ\.?\s*μ/gi;
+  let sm;
+  while((sm=segRe.exec(t))!==null){
+    let lbl=stripAccents(sm[1].trim().toUpperCase());
+    // ignore generic words that aren't real segment names
+    if(/^(ΣΥΝΟΛΙΚ|ΕΚΤΑΣΗ|ΧΩΡΟΥ|ΤΜΗΜΑΤΟΣ)/.test(lbl)) continue;
+    out.polys.push({label:lbl, emvadon:sm[2].replace('.',',')});
+  }
+  if(!out.polys.length){
+    let m2=t.match(/εμβαδ(?:ού|όν|ο[νύ])\s*[=:]?\s*([\d.,]+)\s*τ\.?\s*μ/i);
+    if(!m2) m2=t.match(/ΕΜΒΑΔΟΝ\s*=\s*([\d.,]+)\s*τ\.?\s*μ/i);
+    if(m2) out.polys.push({label:'', emvadon:m2[1].replace('.',',')});
+  }
+  if(out.polys.length) out.emvadon=out.polys[0].emvadon;
 
   // ---- Διάρκεια — έναρξη = ημ/νία εγγράφου (προς έλεγχο, = υπογραφή), λήξη αξιόπιστη ----
   // CRITICAL: end date comes ONLY from "λήγει [την] DD/MM/YYYY", or as fallback the
@@ -634,7 +773,8 @@ function parseContract(text, filename, region){
   }
 
   // ---- Συντεταγμένες (πιστή αντιγραφή, μόνο από κείμενο) ----
-  out.coords=extractCoords(text);
+  // (Οι συντεταγμένες ΔΕΝ διαβάζονται ως κείμενο — αντιγράφονται ως εικόνα
+  //  κατευθείαν από το PDF, ώστε να είναι ακριβείς παντού στην Ελλάδα.)
   return out;
 }
 
@@ -665,6 +805,59 @@ async function extractPdfText(file){
   return full;
 }
 
+/* ---------- screenshot the coordinate-table region(s) straight from the PDF ----------
+   No number parsing: locate every "ΣΥΝΤΕΤΑΓΜΕΝΕΣ" heading and crop down to the next
+   heading boundary ("ΣΥΝΤΕΤΑΓΜΕΝΕΣ", "ΔΙΑΡΚΕΙΑ", "Β)"/"Γ)" segment, or "ΑΝΤΑΛΛΑΓΜΑ").
+   Reproduces each official table EXACTLY. Returns an ARRAY of PNG data URLs (in
+   document order) — one per coordinate block, so multi-polygon contracts work. */
+async function snapshotCoordTables(file){
+  const out=[];
+  try{
+    const buf=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buf.slice(0)}).promise;
+    // gather (page, y) for every ΣΥΝΤΕΤΑΓΜΕΝΕΣ heading and every plausible "end" marker
+    const pages=[];
+    for(let p=1;p<=pdf.numPages;p++){
+      const page=await pdf.getPage(p);
+      const tc=await page.getTextContent();
+      const vp1=page.getViewport({scale:1});
+      const starts=[], ends=[];
+      tc.items.forEach(it=>{
+        const s=(it.str||''); const y=it.transform[5];
+        if(/ΣΥΝΤΕΤΑΓΜΕΝΕΣ/.test(s)) starts.push(y);
+        if(/ΔΙΑΡΚΕΙΑ|ΑΝΤΑΛΛΑΓΜΑ/.test(s)) ends.push(y);
+        // "Β)" / "Γ)" segment introducers act as the end of the previous table
+        if(/^[ΑΒΓΔΕ]\s*\)/.test(s.trim())) ends.push(y);
+      });
+      pages.push({page,vp1,starts:starts.sort((a,b)=>b-a),ends:ends.sort((a,b)=>b-a)});
+    }
+    for(const pg of pages){
+      for(const topY of pg.starts){
+        // nearest end marker strictly BELOW this heading (smaller y), on same page
+        let botY=null;
+        for(const ey of pg.ends){ if(ey<topY){ botY=ey; break; } }
+        // also stop at the next ΣΥΝΤΕΤΑΓΜΕΝΕΣ heading if it comes first
+        for(const sy of pg.starts){ if(sy<topY && (botY===null || sy>botY)) botY=sy; }
+        const scale=3;
+        const vp=pg.page.getViewport({scale});
+        const yTopCanvas=(pg.vp1.height - topY)*scale - 8*scale;
+        const yBotCanvas=(botY!==null)
+          ? (pg.vp1.height - botY)*scale + 4*scale
+          : Math.min(vp.height, yTopCanvas + 220*scale); // cap if no marker found
+        const full=document.createElement('canvas');
+        full.width=vp.width; full.height=vp.height;
+        await pg.page.render({canvasContext:full.getContext('2d'),viewport:vp}).promise;
+        const h=Math.max(20, yBotCanvas - yTopCanvas);
+        const crop=document.createElement('canvas');
+        crop.width=vp.width; crop.height=h;
+        crop.getContext('2d').drawImage(full,0,yTopCanvas,vp.width,h,0,0,vp.width,h);
+        out.push(crop.toDataURL('image/png'));
+      }
+    }
+  }catch(_){}
+  return out;
+}
+
 document.getElementById('up_pdf').addEventListener('change',async e=>{
   const f=e.target.files[0]; if(!f) return;
   const status=document.getElementById('pdf_status');
@@ -672,50 +865,54 @@ document.getElementById('up_pdf').addEventListener('change',async e=>{
   status.textContent='Διαβάζεται το PDF…';
   try{
     const text=await extractPdfText(f);
-    window.__lastPdfText=text;  // for debug button
+    window.__lastPdfText=text;
     document.getElementById('dbgBtn').style.display='inline-block';
     const d=parseContract(text, f.name, selectedKy);
 
-    // wipe previous PDF's values first, so nothing carries over
-    ['f_symbasi','f_ada','f_misthotis','f_emvadon','f_diarkeia'].forEach(id=>{
-      const el=document.getElementById(id); el.value=''; el.dispatchEvent(new Event('input'));
-    });
-    coords=[];
-    coordImgActive=false;
-    document.getElementById('clearCoordImg').style.display='none';
-    coordSlot.innerHTML=coordTableHTML;
-    document.getElementById('f_coordpaste').value='';
-    renderCoordTable();
+    // shared fields
+    setField('f_symbasi', d.symbasi||'');
+    const adaOk=setField('f_ada', d.ada||'');
+    setField('f_misthotis', d.misthotis||'');
+    setField('f_diarkeia', d.diarkeia||'');
 
-    const filled=[];
-    const warn=[];
-    if(setField('f_symbasi',d.symbasi)) filled.push('Αρ. Σύμβασης');
-    if(setField('f_ada',d.ada)) filled.push('ΑΔΑ');
-    else warn.push('ΑΔΑ (συμπλήρωσέ τον χειροκίνητα — δεν προκύπτει από το όνομα αρχείου)');
-    if(setField('f_misthotis',d.misthotis)) filled.push('Μισθωτής');
-    if(setField('f_emvadon',d.emvadon)) filled.push('Εμβαδόν');
-    else warn.push('ΕΜΒΑΔΟΝ — δεν διαβάστηκε, συμπλήρωσέ το χειροκίνητα');
-    if(setField('f_diarkeia',d.diarkeia)) filled.push('Διάρκεια');
-    if(d.diarkeiaNeedsCheck) warn.push('ημ/νία ΕΝΑΡΞΗΣ διάρκειας = ημ/νία ΥΠΟΓΡΑΦΗΣ — επιβεβαίωσέ την (μπήκε προσωρινά η ημ/νία πρωτοκόλλου)');
-    if(d.coords && d.coords.length>=3){
-      coords=d.coords;
-      renderCoordTable();
-      // mirror into paste box for transparency
-      document.getElementById('f_coordpaste').value=
-        d.coords.map((c,i)=>(i+1)+'  '+c.x+'  '+c.y).join('\n');
-      document.getElementById('coord_status').textContent='Διαβάστηκαν '+d.coords.length+' κορυφές από το PDF.';
-      document.getElementById('coord_status').classList.add('has-file');
-      filled.push(d.coords.length+' κορυφές');
-    }else{
-      warn.push('ΣΥΝΤΕΤΑΓΜΕΝΕΣ — δεν διαβάστηκαν (ο πίνακας είναι εικόνα). Ανέβασε την «εικόνα του πίνακα συντεταγμένων» πιο κάτω');
+    // snapshot all coordinate tables, then build one polygon per segment
+    const snaps=await snapshotCoordTables(f);
+    const segs=(d.polys&&d.polys.length)?d.polys:[{label:'',emvadon:''}];
+    const multi = segs.length>1 || snaps.length>1;
+
+    polys=[];
+    const count=Math.max(segs.length, snaps.length, 1);
+    for(let i=0;i<count;i++){
+      const seg=segs[i]||segs[segs.length-1]||{label:'',emvadon:''};
+      const P=newPolygon({
+        label: multi ? (seg.label||('ΠΟΛΥΓΩΝΟ '+(i+1))) : '',
+        emvadon: seg.emvadon||'50,00',
+      });
+      if(snaps[i]){
+        P.coordImg=snaps[i];
+        P.coordImgName='από PDF';
+        P.coordStatus='Ο πίνακας συντεταγμένων αντιγράφηκε ως εικόνα από το PDF.';
+      }
+      polys.push(P);
     }
-    let msg = filled.length
-      ? '✓ Συμπληρώθηκαν: '+filled.join(', ')+'.'
-      : 'Δεν εντοπίστηκαν στοιχεία — συμπλήρωσε χειροκίνητα.';
-    if(warn.length) msg += ' ⚠ '+warn.join(' · ');
-    msg += ' Έλεγξε & διόρθωσε αν χρειάζεται.';
-    status.innerHTML = msg;
-    status.classList.add('has-file');
+    active=0;
+    renderPolyBar(); loadActiveIntoPanel(); renderSigns();
+
+    // status message
+    const filled=['Αρ. Σύμβασης','Μισθωτής','Διάρκεια'];
+    const warn=[];
+    if(adaOk) filled.unshift('ΑΔΑ'); else warn.push('ΑΔΑ (δεν προκύπτει από το όνομα αρχείου — συμπλήρωσέ τον)');
+    if(segs.some(s=>s.emvadon)) filled.push(multi?('Εμβαδά ('+segs.length+' πολύγωνα)'):'Εμβαδόν');
+    else warn.push('ΕΜΒΑΔΟΝ — δεν διαβάστηκε');
+    if(snaps.length) filled.push('πίνακ'+(snaps.length>1?'ες':'ας')+' συντεταγμένων (εικόνα ×'+snaps.length+')');
+    else warn.push('ΣΥΝΤΕΤΑΓΜΕΝΕΣ — δεν εντοπίστηκαν πίνακες· ανέβασέ τους χειροκίνητα ανά πολύγωνο');
+    if(d.diarkeiaNeedsCheck) warn.push('ημ/νία ΕΝΑΡΞΗΣ διάρκειας = ημ/νία ΥΠΟΓΡΑΦΗΣ — επιβεβαίωσέ την');
+    if(multi) warn.push('Δημιουργήθηκαν '+count+' σελίδες (μία ανά πολύγωνο) — βάλε QR & ορθοφωτοχάρτη σε καθεμία');
+
+    let msg='✓ Συμπληρώθηκαν: '+filled.join(', ')+'.';
+    if(warn.length) msg+=' ⚠ '+warn.join(' · ');
+    msg+=' Έλεγξε & διόρθωσε αν χρειάζεται.';
+    status.innerHTML=msg; status.classList.add('has-file');
   }catch(err){
     console.error(err);
     status.textContent='Σφάλμα ανάγνωσης PDF: '+err.message;
@@ -745,40 +942,51 @@ document.getElementById('dbgBtn').addEventListener('click',()=>{
     '──── κείμενο γύρω από «ΔΙΑΡΚΕΙΑ» ────\n'+snippet;
 });
 
-/* ---------- fit the sign to one A4 page before printing ---------- */
+/* ---------- fit each polygon onto exactly one A4 sheet ----------
+   .sign is locked to the A4 printable box; .sign-inner is scaled down (never up)
+   until its natural height fits the page height. Width is fixed (190mm), so only
+   height can overflow — we solve for the scale that removes that overflow. */
 window.computePrintScale=function computePrintScale(){
-  const sign=document.getElementById('sign');
-  // A4 printable area at 96dpi with 12mm margins:
-  // height 297mm - 24mm = 273mm ≈ 1032px ; width 210mm - 24mm = 186mm ≈ 703px
-  const pageH=1032, pageW=703;
-  // reset any prior scale to measure natural size
-  sign.style.setProperty('--print-scale','1');
-  const rect=sign.getBoundingClientRect();
-  const sH=pageH/rect.height;
-  const sW=pageW/rect.width;
-  let scale=Math.min(1, sH, sW);   // never upscale
-  scale=Math.floor(scale*100)/100; // round down to be safe
-  sign.style.setProperty('--print-scale', scale);
+  // A4 printable area with 10mm margins, at 96dpi: 1mm = 96/25.4 px
+  const mm = 96/25.4;
+  const availH = 277 * mm;     // 297 - 2*10
+  document.querySelectorAll('.sign').forEach(sign=>{
+    const inner=sign.querySelector('.sign-inner');
+    if(!inner) return;
+    inner.style.setProperty('--print-scale','1');           // measure natural size
+    // force layout at the print width so measurement matches print
+    const prevW=inner.style.width;
+    inner.style.width='190mm';
+    const natH=inner.scrollHeight;
+    let scale=Math.min(1, availH/natH);
+    scale=Math.floor(scale*1000)/1000;                      // round down, 3 decimals
+    if(!isFinite(scale)||scale<=0) scale=1;
+    inner.style.setProperty('--print-scale', scale);
+    inner.style.width=prevW;
+  });
 }
 window.addEventListener('beforeprint', window.computePrintScale);
 window.addEventListener('afterprint', ()=>{
-  document.getElementById('sign').style.setProperty('--print-scale','1');
+  document.querySelectorAll('.sign-inner').forEach(s=>s.style.setProperty('--print-scale','1'));
 });
 
-/* ---------- export PNG ---------- */
+/* ---------- export PNG (one file per polygon page) ---------- */
 document.getElementById('dlPng').addEventListener('click',async()=>{
-  const node=document.getElementById('sign');
-  const canvas=await html2canvas(node,{scale:2,backgroundColor:'#ffffff'});
-  const a=document.createElement('a');
-  a.download='pinakida_paraxorisis.png';
-  a.href=canvas.toDataURL('image/png');
-  a.click();
+  const nodes=document.querySelectorAll('.sign-inner');
+  for(let i=0;i<nodes.length;i++){
+    const canvas=await html2canvas(nodes[i],{scale:2,backgroundColor:'#ffffff'});
+    const a=document.createElement('a');
+    a.download = nodes.length>1 ? ('pinakida_paraxorisis_'+(i+1)+'.png') : 'pinakida_paraxorisis.png';
+    a.href=canvas.toDataURL('image/png');
+    a.click();
+    if(i<nodes.length-1) await new Promise(r=>setTimeout(r,400));
+  }
 });
 
 /* ---------- PWA: offline service worker (works when served over http/https) ---------- */
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   const swCode = `
-    const CACHE='pinakida-v15';
+    const CACHE='pinakida-v20';
     self.addEventListener('install', e=>{ self.skipWaiting(); });
     self.addEventListener('activate', e=>{
       e.waitUntil(
